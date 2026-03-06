@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -30,6 +31,11 @@ public class GameManager : MonoBehaviour
 
     private bool isPaused = false;
 
+    [Header("Setting UI")]
+    public GameObject settingPanel;
+    public TextMeshProUGUI volumePercentText;
+    public Slider volumeSlider;
+
     void Awake()
     {
         Instance = this;
@@ -41,6 +47,9 @@ public class GameManager : MonoBehaviour
         UpdateTimerUI();
         gameOverPanel.SetActive(false);
         pausePanel.SetActive(false);
+        settingPanel.SetActive(false);
+        volumeSlider.value = AudioListener.volume;
+        SetVolume(volumeSlider.value); // cập nhật text volume lúc bắt đầu
     }
 
     void Update()
@@ -61,7 +70,15 @@ public class GameManager : MonoBehaviour
         // Pause bằng ESC (không cho pause khi GameOver)
         if (!gameOverPanel.activeSelf && Input.GetKeyDown(KeyCode.Escape))
         {
-            TogglePause();
+            // Nếu đang ở Setting -> quay lại Pause
+            if (settingPanel.activeSelf)
+            {
+                BackToPause();
+            }
+            else
+            {
+                TogglePause();
+            }
         }
     }
 
@@ -107,6 +124,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene("MenuGame"); // tên scene menu của bạn
     }
+
     void TogglePause()
     {
         isPaused = !isPaused;
@@ -118,10 +136,41 @@ public class GameManager : MonoBehaviour
         else
             Time.timeScale = 1f;
     }
+
     public void ResumeGame()
     {
         isPaused = false;
         pausePanel.SetActive(false);
+        settingPanel.SetActive(false);
         Time.timeScale = 1f;
+    }
+    public void OpenSetting()
+    {
+        pausePanel.SetActive(false);
+        settingPanel.SetActive(true);
+    }
+
+    public void BackToPause()
+    {
+        settingPanel.SetActive(false);
+        pausePanel.SetActive(true);
+    }
+
+    public void SetVolume(float volume)
+    {
+        AudioListener.volume = volume;
+
+        int percent = Mathf.RoundToInt(volume * 100);
+        volumePercentText.text = percent + "%";
+    }
+
+    public void SetMouseSensitivity(float value)
+    {
+        PlayerPrefs.SetFloat("MouseSensitivity", value);
+    }
+
+    public void SetFullscreen(bool isFullscreen)
+    {
+        Screen.fullScreen = isFullscreen;
     }
 }
