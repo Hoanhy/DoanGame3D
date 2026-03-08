@@ -10,7 +10,9 @@ public abstract class EnemyBase : MonoBehaviour
     [Header("Movement")]
     public float moveSpeed = 2f;
     protected NavMeshAgent agent;
+
     protected Transform player;
+    protected Transform project; // đồ án
 
     [Header("Attack (Common)")]
     public float attackRange = 6f;
@@ -35,6 +37,17 @@ public abstract class EnemyBase : MonoBehaviour
             Debug.LogWarning("Player not found!");
         }
 
+        // Tìm đồ án
+        GameObject proj = GameObject.FindGameObjectWithTag("Project");
+        if (proj != null)
+        {
+            project = proj.transform;
+        }
+        else
+        {
+            Debug.LogWarning("Project not found!");
+        }
+
         // Đảm bảo enemy nằm trên NavMesh
         NavMeshHit hit;
         if (NavMesh.SamplePosition(transform.position, out hit, 5f, NavMesh.AllAreas))
@@ -45,20 +58,23 @@ public abstract class EnemyBase : MonoBehaviour
 
     protected virtual void Update()
     {
-        // Không chạy nếu player hoặc agent chưa ở NavMesh
-        if (player == null || !agent.isOnNavMesh) return;
+        if (!agent.isOnNavMesh) return;
 
-        float distance = Vector3.Distance(transform.position, player.position);
+        Transform target = ChooseTarget();
 
-        // Quay mặt về player
-        Vector3 dir = player.position - transform.position;
+        if (target == null) return;
+
+        float distance = Vector3.Distance(transform.position, target.position);
+
+        // Quay mặt về target
+        Vector3 dir = target.position - transform.position;
         dir.y = 0;
         transform.rotation = Quaternion.LookRotation(dir);
 
         if (distance > attackRange)
         {
             agent.isStopped = false;
-            agent.SetDestination(player.position);
+            agent.SetDestination(target.position);
         }
         else
         {
@@ -67,12 +83,26 @@ public abstract class EnemyBase : MonoBehaviour
             if (Time.time >= lastAttackTime + attackCooldown)
             {
                 lastAttackTime = Time.time;
-                Attack();
+                Attack(target);
             }
         }
     }
 
-    protected abstract void Attack();
+    // Chọn mục tiêu
+    Transform ChooseTarget()
+    {
+        if (player == null) return project;
+        if (project == null) return player;
+
+        float playerDistance = Vector3.Distance(transform.position, player.position);
+
+        if (playerDistance < 5f) // khoảng phát hiện player
+            return player;
+
+        return project;
+    }
+
+    protected abstract void Attack(Transform target);
 
     public virtual void TakeDamage(float dmg)
     {
