@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using UnityEngine;
+using UnityTutorial.PlayerController;
 
 public class EnemyMelee : EnemyBase
 {
@@ -7,6 +8,7 @@ public class EnemyMelee : EnemyBase
     public Transform book;
     public float pounceDistance = 0.8f;
     public float pounceDuration = 0.18f;
+    public float damage = 10f;
 
     Vector3 bookStartLocalPos;
     bool isAttacking;
@@ -19,24 +21,24 @@ public class EnemyMelee : EnemyBase
         bookStartLocalPos = book.localPosition;
     }
 
-    protected override void Attack()
+    protected override void Attack(Transform target)
     {
         if (isAttacking) return;
-        StartCoroutine(BookAttack());
+        StartCoroutine(BookAttack(target));
     }
 
-    IEnumerator BookAttack()
+    IEnumerator BookAttack(Transform target)
     {
         isAttacking = true;
         agent.isStopped = true;
 
         Vector3 startPos = book.position;
-        Vector3 dir = (player.position - startPos).normalized;
-        Vector3 attackPos = startPos + dir * pounceDistance; 
+        Vector3 dir = (target.position - startPos).normalized;
+        Vector3 attackPos = startPos + dir * pounceDistance;
 
         float t = 0f;
 
-        // VỒ TỚI
+        // Vồ tới
         while (t < 1f)
         {
             t += Time.deltaTime / pounceDuration;
@@ -44,9 +46,27 @@ public class EnemyMelee : EnemyBase
             yield return null;
         }
 
+        // gây damage
+        if (target.CompareTag("Player"))
+        {
+            PlayerController player = target.GetComponent<PlayerController>();
+
+            if (player != null)
+            {
+                player.TakeDamage(damage);
+            }
+        }
+
+        if (target.CompareTag("Project"))
+        {
+            ProjectHP hp = target.GetComponent<ProjectHP>();
+            if (hp != null)
+                hp.TakeDamage(damage);
+        }
+
         t = 0f;
 
-        // QUAY VỀ
+        // quay về
         while (t < 1f)
         {
             t += Time.deltaTime / pounceDuration;
