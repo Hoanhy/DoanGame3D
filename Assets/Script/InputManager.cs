@@ -11,11 +11,13 @@ namespace UnityTutorial.Manager
         public Vector2 Move { get; private set; }
         public Vector2 Look { get; private set; }
         public bool Run { get; private set; }
+        public bool Interact { get; private set; }
 
         private InputActionMap currentMap;
         private InputAction moveAction;
         private InputAction lookAction;
         private InputAction runAction;
+        private InputAction interactAction;
 
         private void Awake()
         {
@@ -23,14 +25,17 @@ namespace UnityTutorial.Manager
             moveAction = currentMap.FindAction("Move");
             lookAction = currentMap.FindAction("Look");
             runAction = currentMap.FindAction("Run");
+            interactAction = currentMap.FindAction("Interact");
 
             moveAction.performed += onMove;
             lookAction.performed += onLook;
             runAction.performed += onRun;
+            interactAction.performed += onInteract;
 
             moveAction.canceled += onMove;
             lookAction.canceled += onLook;
             runAction.canceled += onRun;
+            interactAction.canceled += onInteract;
         }
 
         private void onMove(InputAction.CallbackContext context)
@@ -45,6 +50,10 @@ namespace UnityTutorial.Manager
         {
             Run = context.ReadValueAsButton();
         }
+        private void onInteract(InputAction.CallbackContext context)
+        {
+            Interact = context.ReadValueAsButton();
+        }   
 
         private void OnEnable()
         {

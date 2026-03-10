@@ -19,13 +19,19 @@ namespace UnityTutorial.PlayerController
         // ===== PLAYER HEALTH =====
         [Header("Player Health")]
         public float maxHP = 100f;
-        private float currentHP;
+        public float currentHP;
+
+        [Header("UI & Effects")]
+        public UnityEngine.UI.Slider healthBarSlider;
+
+        private bool isDead = false;
 
         public void Start()
         {
             playerRigidbody = GetComponent<Rigidbody>();
             inputManager = FindFirstObjectByType<InputManager>();
             currentHP = maxHP;
+            UpdateHealthUI(); // Gọi hàm cập nhật UI
 
             // Tìm Camera chính trong scene
             if (Camera.main != null)
@@ -110,20 +116,45 @@ namespace UnityTutorial.PlayerController
         // ===== DAMAGE SYSTEM =====
         public void TakeDamage(float damage)
         {
+            if (isDead) return; // Nếu chết rồi thì không nhận sát thương nữa
+
             currentHP -= damage;
 
-            Debug.Log("Player HP: " + currentHP);
+            // Đảm bảo máu không bị âm
+            if (currentHP < 0) currentHP = 0;
+
+            Debug.Log("Player bị đánh! Máu còn: " + currentHP);
+            UpdateHealthUI();
 
             if (currentHP <= 0)
             {
                 Die();
             }
         }
-
+        private void UpdateHealthUI()
+        {
+            // Nếu bạn có Slider thanh máu, cập nhật nó ở đây
+            // if (healthBarSlider != null) 
+            // {
+            //     healthBarSlider.value = currentHP / maxHP; 
+            // }
+        }
         private void Die()
         {
-            Debug.Log("Player Dead");
-            Destroy(gameObject);
+            if (isDead) return;
+            isDead = true;
+            Debug.Log("Player Dead!");
+
+            // 1. Tắt script di chuyển để không điều khiển được nữa
+            this.enabled = false;
+
+            // 2. Tắt va chạm để quái vật không đánh xác chết
+            GetComponent<Collider>().enabled = false;
+            if (playerRigidbody != null) playerRigidbody.isKinematic = true;
+
+            // 3. Chỗ này sau này bạn gọi Animation ngã xuống hoặc hiện UI Game Over
+            // GetComponent<Animator>().SetTrigger("Die");
+            // FindFirstObjectByType<GameManager>().ShowGameOverScreen();
         }
     }
 }
