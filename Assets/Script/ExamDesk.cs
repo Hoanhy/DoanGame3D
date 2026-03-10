@@ -17,9 +17,14 @@ namespace UnityTutorial.Interactables
         private GameObject playerObject;
         private PlayerController.PlayerController playerController;
         public UnityTutorial.Quiz.QuizManager quizManager;
+        private UnityTutorial.Manager.InputManager inputManager;
+        private bool wasInteractPressed = false; // Tránh tình trạng giữ đè nút E
 
         private void Start()
         {
+            // Tự động tìm InputManager trong map
+            inputManager = FindFirstObjectByType<UnityTutorial.Manager.InputManager>();
+
             // Đảm bảo UI được tắt khi bắt đầu game
             if (promptUI != null) promptUI.SetActive(false);
             if (quizUI != null) quizUI.SetActive(false);
@@ -28,15 +33,21 @@ namespace UnityTutorial.Interactables
 
         private void Update()
         {
-            if (UnityEngine.InputSystem.Keyboard.current == null) return;
+            if (inputManager == null) return;
 
             // Nếu đã thi ĐẬU rồi thì không cho bấm E nữa
             if (quizManager != null && quizManager.hasPassed) return;
 
-            if (isPlayerNear && !isTakingExam && UnityEngine.InputSystem.Keyboard.current.eKey.wasPressedThisFrame)
+            // Kiểm tra xem nút Interact có đang được bấm không
+            bool isInteractPressed = inputManager.Interact;
+
+            if (isPlayerNear && !isTakingExam && isInteractPressed && !wasInteractPressed)
             {
                 StartExam();
             }
+
+            // Lưu lại trạng thái của nút cho khung hình (frame) tiếp theo
+            wasInteractPressed = isInteractPressed;
         }
 
         private void OnTriggerEnter(Collider other)
