@@ -108,9 +108,15 @@ public abstract class EnemyBase : MonoBehaviour
     {
         currentHP -= dmg;
 
+        // --- THÊM DÒNG DEBUG NÀY ĐỂ BÁO CÁO MÁU ---
+        Debug.Log("Quái vật " + gameObject.name + " bị chém mất " + dmg + " máu! Máu còn lại: " + currentHP);
+
         if (currentHP <= 0)
         {
+            // Thêm 1 dòng báo tử vong luôn cho rõ ràng
+            Debug.Log("Quái vật " + gameObject.name + " ĐÃ BỊ TIÊU DIỆT!");
             Destroy(gameObject);
         }
     }
+
 }

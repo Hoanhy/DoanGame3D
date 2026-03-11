@@ -90,13 +90,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4546cb28e932ec43a7f1529252a9ba5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  maxHP: 100
+  maxHP: 20
   moveSpeed: 2
   attackRange: 2
   attackCooldown: 1.5
   book: {fileID: 8709703841005216364}
   pounceDistance: 0.8
   pounceDuration: 0.18
+  damage: 10
 --- !u!1001 &8167815797976967473
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -135,7 +136,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 686513405842230109, guid: 49e340daf6042034d9bbbd840839fb50, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 686513405842230109, guid: 49e340daf6042034d9bbbd840839fb50, type: 3}
       propertyPath: m_LocalPosition.z
