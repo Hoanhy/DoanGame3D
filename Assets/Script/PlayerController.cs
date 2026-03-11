@@ -182,6 +182,14 @@ namespace UnityTutorial.PlayerController
                 {
                     Debug.Log("Chém trúng: " + enemy.name);
                     // Sau này bạn gọi code trừ máu quái vật ở đây
+                    // Tìm script EnemyBase gắn trên con quái vật vừa chém trúng
+                    EnemyBase enemyStats = enemy.GetComponent<EnemyBase>();
+
+                    // Nếu tìm thấy script, gọi hàm TakeDamage và truyền lực chém vào
+                    if (enemyStats != null)
+                    {
+                        enemyStats.TakeDamage(attackDamage);
+                    }
                 }
             }
 
