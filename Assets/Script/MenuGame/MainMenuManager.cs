@@ -4,15 +4,15 @@ using UnityEngine.SceneManagement;
 public class MainMenuManager : MonoBehaviour
 {
     [Header("Scene Settings")]
-    public string gameplaySceneName = "Scene1"; // Tên scene đầu
+    public string gameplaySceneName = "LevelSelect"; // chuyển sang màn chọn level
 
-    // Hàm gán cho nút Play
+    // Nút Play
     public void OnPlayClicked()
     {
         SceneManager.LoadScene(gameplaySceneName);
     }
 
-    // Hàm gán cho nút Exit
+    // Nút Exit
     public void OnQuitClicked()
     {
         Debug.Log("Đang thoát game...");
