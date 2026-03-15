@@ -11,7 +11,6 @@ public class EnemyMelee : EnemyBase
     public float damage = 10f;
 
     Vector3 bookStartLocalPos;
-    bool isAttacking;
     float defaultSpeed;
 
     protected override void Start()
