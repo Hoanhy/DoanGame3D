@@ -9,6 +9,8 @@ public abstract class EnemyBase : MonoBehaviour
 
     [Header("Movement")]
     public float moveSpeed = 2f;
+    public float sprintSpeed = 6f;       // Tốc độ khi đuổi
+    public float sprintDistance = 8f;    // Khoảng cách kích hoạt đuổi
     protected NavMeshAgent agent;
 
     protected Transform player;
@@ -18,6 +20,10 @@ public abstract class EnemyBase : MonoBehaviour
     public float attackRange = 6f;
     public float attackCooldown = 2f;
     protected float lastAttackTime;
+    protected bool isAttacking = false;
+
+    [Header("Targeting Setting")]
+    public bool huntPlayerAlways = false; // Tick vào nếu muốn quái chỉ săn Player
 
     protected virtual void Start()
     {
@@ -59,6 +65,7 @@ public abstract class EnemyBase : MonoBehaviour
     protected virtual void Update()
     {
         if (!agent.isOnNavMesh) return;
+        if (isAttacking) return;
 
         Transform target = ChooseTarget();
 
@@ -75,6 +82,10 @@ public abstract class EnemyBase : MonoBehaviour
         {
             agent.isStopped = false;
             agent.SetDestination(target.position);
+            if (huntPlayerAlways && distance >= sprintDistance)
+                agent.speed = sprintSpeed;
+            else
+                agent.speed = moveSpeed;
         }
         else
         {
@@ -89,14 +100,21 @@ public abstract class EnemyBase : MonoBehaviour
     }
 
     // Chọn mục tiêu
-    Transform ChooseTarget()
+    protected Transform ChooseTarget()
     {
         if (player == null) return project;
         if (project == null) return player;
 
+        // 1. NẾU BẬT CÔNG TẮC SĂN PLAYER: Bỏ qua Đồ án, lao thẳng vào người chơi từ bất kỳ đâu
+        if (huntPlayerAlways)
+        {
+            return player;
+        }
+
+        // 2. NẾU TẮT CÔNG TẮC: Ưu tiên đánh Đồ án
         float playerDistance = Vector3.Distance(transform.position, player.position);
 
-        if (playerDistance < 5f) // khoảng phát hiện player
+        if (playerDistance < 5f) // Nếu player chạy lại gần 5m thì tấn công
             return player;
 
         return project;
