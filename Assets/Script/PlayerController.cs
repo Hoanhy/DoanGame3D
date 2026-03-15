@@ -44,6 +44,10 @@ namespace UnityTutorial.PlayerController
             inputManager = FindFirstObjectByType<InputManager>();
             animator = GetComponent<Animator>();
             currentHP = maxHP;
+            // Khóa chuột vào giữa màn hình
+            Cursor.lockState = CursorLockMode.Locked;
+            // Tàng hình con chuột
+            Cursor.visible = false;
             UpdateHealthUI(); // Gọi hàm cập nhật UI
 
             // Tìm Camera chính trong scene

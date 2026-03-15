@@ -12,6 +12,7 @@ namespace UnityTutorial.Interactables
         [Header("Transform Setup")]
         public Transform sitPoint;  // Kéo thả vị trí ngồi (Empty GameObject) vào đây
 
+        private bool isUnlocked = false;
         private bool isPlayerNear = false;
         private bool isTakingExam = false;
         private GameObject playerObject;
@@ -41,7 +42,7 @@ namespace UnityTutorial.Interactables
             // Kiểm tra xem nút Interact có đang được bấm không
             bool isInteractPressed = inputManager.Interact;
 
-            if (isPlayerNear && !isTakingExam && isInteractPressed && !wasInteractPressed)
+            if (isUnlocked && isPlayerNear && !isTakingExam && isInteractPressed && !wasInteractPressed)
             {
                 StartExam();
             }
@@ -63,7 +64,7 @@ namespace UnityTutorial.Interactables
                 playerController = playerObject.GetComponent<PlayerController.PlayerController>();
 
                 // Hiện dòng chữ "Nhấn E để thi"
-                if (promptUI != null) promptUI.SetActive(true);
+                if (isUnlocked && promptUI != null) promptUI.SetActive(true);
             }
         }
 
@@ -80,6 +81,17 @@ namespace UnityTutorial.Interactables
             }
         }
 
+        public void UnlockDesk()
+        {
+            isUnlocked = true;
+            Debug.Log("Hệ thống: Bàn thi đã được mở khóa!");
+
+            // Nếu người chơi đang đứng sẵn ở bàn thì hiện luôn chữ "Nhấn E"
+            if (isPlayerNear && promptUI != null && (quizManager == null || !quizManager.hasPassed))
+            {
+                promptUI.SetActive(true);
+            }
+        }
         private void StartExam()
         {
             isTakingExam = true;
@@ -132,22 +144,22 @@ namespace UnityTutorial.Interactables
             if (quizUI != null) quizUI.SetActive(false);
 
             // Bật lại điều khiển cho người chơi
-            if (playerController != null)
-            {
-                playerController.enabled = true;
-
-                // (Tùy chọn) Tắt Animation ngồi
-                // playerObject.GetComponent<Animator>().SetBool("isSitting", false);
-            }
+            if (playerController != null) playerController.enabled = true;
 
             // Khóa lại chuột nếu game của bạn là góc nhìn thứ 3/thứ 1
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 
             // Nếu thi rớt và vẫn đang đứng ở bàn thì hiện lại chữ Nhấn E
-            if (isPlayerNear && quizManager != null && !quizManager.hasPassed)
+            bool canShowPrompt = true;
+            if (quizManager != null && quizManager.hasPassed)
             {
-                if (promptUI != null) promptUI.SetActive(true);
+                canShowPrompt = false;
+            }
+
+            if (isPlayerNear && canShowPrompt)
+            {
+                if (isUnlocked && promptUI != null) promptUI.SetActive(true);
             }
         }
     }

@@ -1066,6 +1066,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67438af3e0fddba4083353067b3b414e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  autoStart: 1
   spawnPoints:
   - {fileID: 1458595530}
   - {fileID: 252670207}
