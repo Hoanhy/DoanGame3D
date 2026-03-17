@@ -36,6 +36,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI volumePercentText;
     public Slider volumeSlider;
 
+    [Header("Win UI")]
+    public GameObject winGamePanel;
     void Awake()
     {
         Instance = this;
@@ -172,5 +174,29 @@ public class GameManager : MonoBehaviour
     public void SetFullscreen(bool isFullscreen)
     {
         Screen.fullScreen = isFullscreen;
+    }
+
+    public void WinGame()
+    {
+        timerRunning = false;
+        missionText.text = "Chúc mừng! Bạn đã nhập học thành công!";
+
+        // Mở khóa level tiếp theo
+        int currentLevel = SceneManager.GetActiveScene().buildIndex;
+        int levelUnlocked = PlayerPrefs.GetInt("LevelUnlocked", 1);
+
+        if (currentLevel >= levelUnlocked)
+        {
+            PlayerPrefs.SetInt("LevelUnlocked", currentLevel + 1);
+        }
+
+        winGamePanel.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+    public void GoToLevelSelect()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("LevelSelect");
     }
 }
