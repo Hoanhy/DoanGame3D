@@ -10,15 +10,21 @@ public class ProjectHP : MonoBehaviour
         currentHP = maxHP;
     }
 
-    public void TakeDamage(float dmg)
+    public void TakeDamage(float damage)
     {
-        currentHP -= dmg;
+        currentHP -= damage;
 
-        Debug.Log("Project HP: " + currentHP);
-
+        // Thêm đoạn này vào:
         if (currentHP <= 0)
         {
-            Debug.Log("ĐỒ ÁN BỊ PHÁ!");
+            currentHP = 0;
+            // Báo động cho Level 3 biết là Đồ án đã banh xác!
+            if (Level3Manager.Instance != null)
+            {
+                Level3Manager.Instance.ProjectDestroyed();
+            }
+
+            // Xóa cục đồ án (hoặc chạy animation nổ)
             Destroy(gameObject);
         }
     }

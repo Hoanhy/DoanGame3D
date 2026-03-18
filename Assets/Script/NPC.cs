@@ -85,36 +85,56 @@ public class TeacherNPC : MonoBehaviour
 
         if (nameText != null) nameText.text = npcName; // Gán tên Thầy Giáo
 
-        // Nếu đã gán QuizManager VÀ đã thi đậu VÀ có câu thoại kịch bản 2
-        if (((quizManager != null && quizManager.hasPassed) || isCombatCleared) && sentencesPhase2.Length > 0)
+        bool passed = false;
+
+        if (Level1Manager.Instance != null)
+        {
+            // Nếu đang ở Màn 1: Kiểm tra xem đã nhặt đủ hồ sơ chưa
+            passed = Level1Manager.Instance.readyToSubmit;
+        }
+        else if (Level2Manager.Instance != null)
+        {
+            // Nếu đang ở Màn 2: Kiểm tra thi đậu hoặc đánh quái xong
+            if (quizManager != null && quizManager.hasPassed) passed = true;
+            if (isCombatCleared) passed = true;
+        }
+        else if (Level3Manager.Instance != null)
+        {
+            // Nếu đang ở Màn 3: Kiểm tra bảo vệ đồ án (đã gọi SetCombatCleared)
+            passed = isCombatCleared;
+        }
+        else
+        {
+            // Phòng hờ các màn khác
+            passed = (quizManager != null && quizManager.hasPassed) || isCombatCleared;
+        }
+
+        // Chọn kịch bản tương ứng
+        if (passed && sentencesPhase2.Length > 0)
         {
             currentSentences = sentencesPhase2;
             currentEvent = onDialogueEndPhase2;
         }
-        else // Ngược lại thì dùng kịch bản 1 (phát đề thi)
+        else
         {
             currentSentences = sentences;
             currentEvent = onDialogueEnd;
         }
 
-        // Khóa nhân vật lại không cho chạy đi chỗ khác
+        // Khóa nhân vật
         if (player != null)
         {
-            // 1. Ép hoạt ảnh về dáng đứng im (Idle) TRƯỚC khi khóa
             Animator playerAnim = player.GetComponent<Animator>();
-            if (playerAnim != null)
-            {
-                playerAnim.SetFloat("Speed", 0f);
-            }
+            if (playerAnim != null) playerAnim.SetFloat("Speed", 0f);
 
-            // 2. Khóa script và phanh gấp (Code cũ của bạn)
             player.enabled = false;
             Rigidbody rb = player.GetComponent<Rigidbody>();
             if (rb != null) rb.linearVelocity = Vector3.zero;
         }
+
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        NextSentence(); // Hiện câu đầu tiên
+        NextSentence();
     }
 
     public void NextSentence()

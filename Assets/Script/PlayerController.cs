@@ -252,19 +252,30 @@ namespace UnityTutorial.PlayerController
             isDead = true;
             Debug.Log("Player Dead!");
 
-            // 1. Tắt script di chuyển để không điều khiển được nữa
             this.enabled = false;
-
-            // 2. Tắt va chạm để quái vật không đánh xác chết
             GetComponent<Collider>().enabled = false;
             if (playerRigidbody != null) playerRigidbody.isKinematic = true;
 
-            // 3. Chỗ này sau này bạn gọi Animation ngã xuống hoặc hiện UI Game Over
-            if (animator != null)
+            if (animator != null) animator.SetTrigger("Die");
+
+            // === BÁO CÁO TÌNH HÌNH TỬ TRẬN ===
+            if (Level3Manager.Instance != null)
             {
-                animator.SetTrigger("Die");
+                Level3Manager.Instance.PlayerDied(); // Báo cho Màn 3
             }
-            // FindFirstObjectByType<GameManager>().ShowGameOverScreen();
+            else if (Level2Manager.Instance != null)
+            {
+                //Level2Manager.Instance.PlayerDied(); // Báo cho Màn 2
+            }
+            else
+            {
+                // Tự động tìm bất kỳ Quản lý nào đang có mặt ở màn chơi hiện tại và gọi GameOver
+                BaseGameManager currentManager = FindFirstObjectByType<BaseGameManager>();
+                if (currentManager != null)
+                {
+                    currentManager.GameOver();
+                }
+            }
         }
     }
 }
