@@ -54,6 +54,8 @@ public class GameManager3 : MonoBehaviour
     {
         gameOverPanel.SetActive(true);
         Time.timeScale = 0f;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     // ===== BUTTON FUNCTIONS =====
@@ -73,13 +75,22 @@ public class GameManager3 : MonoBehaviour
     void TogglePause()
     {
         isPaused = !isPaused;
-
         pausePanel.SetActive(isPaused);
 
         if (isPaused)
+        {
             Time.timeScale = 0f;
+            // 1. KHI PAUSE: Thả chuột ra để người chơi bấm UI
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
         else
+        {
             Time.timeScale = 1f;
+            // 2. KHI TẮT PAUSE (Bằng nút ESC): Giấu chuột đi để chơi tiếp
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     }
 
     public void ResumeGame()
@@ -88,6 +99,8 @@ public class GameManager3 : MonoBehaviour
         pausePanel.SetActive(false);
         settingPanel.SetActive(false);
         Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public void OpenSetting()

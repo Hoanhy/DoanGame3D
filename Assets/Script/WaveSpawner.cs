@@ -17,7 +17,7 @@ public class WaveSpawner : MonoBehaviour
 
     [Header("Spawn Points")]
     public Transform[] spawnPoints;
-
+    
     [Header("Enemy Prefabs")]
     public GameObject meleeEnemy;
     public GameObject rangedEnemy;
