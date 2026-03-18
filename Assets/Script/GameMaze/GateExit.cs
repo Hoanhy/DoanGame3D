@@ -8,8 +8,7 @@ public class GateExit : MonoBehaviour
         {
             if (GameManager.Instance.hasStudentCard)
             {
-                Debug.Log("Chúc mừng! Bạn đã nhập học thành công!");
-                Time.timeScale = 0f;
+                GameManager.Instance.WinGame();
             }
             else
             {
