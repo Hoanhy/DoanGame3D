@@ -13,13 +13,29 @@ public class BulletEnemy : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        PlayerController player = collision.gameObject.GetComponent<PlayerController>();
+        // ===== PLAYER =====
+        PlayerController player = collision.gameObject.GetComponentInParent<PlayerController>();
 
         if (player != null)
         {
             player.TakeDamage(damage);
+            Debug.Log("Bullet hit Player");
+            Destroy(gameObject);
+            return;
         }
 
+        // ===== PROJECT =====
+        ProjectHP project = collision.gameObject.GetComponentInParent<ProjectHP>();
+
+        if (project != null)
+        {
+            project.TakeDamage(damage);
+            Debug.Log("Bullet hit Project");
+            Destroy(gameObject);
+            return;
+        }
+
+        // ===== hit vật khác =====
         Destroy(gameObject);
     }
 }

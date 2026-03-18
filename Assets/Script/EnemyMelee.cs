@@ -6,72 +6,81 @@ public class EnemyMelee : EnemyBase
 {
     [Header("Book Attack")]
     public Transform book;
-    public float pounceDistance = 0.8f;
-    public float pounceDuration = 0.18f;
+    public float pounceDistance = 1.2f;
+    public float pounceDuration = 0.2f;
     public float damage = 10f;
 
     Vector3 bookStartLocalPos;
-    float defaultSpeed;
 
     protected override void Start()
     {
         base.Start();
-        defaultSpeed = agent.speed;
-        bookStartLocalPos = book.localPosition;
+
+        if (book != null)
+            bookStartLocalPos = book.localPosition;
     }
 
     protected override void Attack(Transform target)
     {
-        if (isAttacking) return;
-        StartCoroutine(BookAttack(target));
-    }
+        if (isAttacking || target == null) return;
 
-    IEnumerator BookAttack(Transform target)
-    {
-        isAttacking = true;
-        agent.isStopped = true;
+        // ===== DAMAGE NGAY GIỐNG RANGED =====
 
-        Vector3 startPos = book.position;
-        Vector3 dir = (target.position - startPos).normalized;
-        Vector3 attackPos = startPos + dir * pounceDistance;
-
-        float t = 0f;
-
-        // Vồ tới
-        while (t < 1f)
-        {
-            t += Time.deltaTime / pounceDuration;
-            book.position = Vector3.Lerp(startPos, attackPos, t);
-            yield return null;
-        }
-
-        // gây damage
         if (target.CompareTag("Player"))
         {
-            PlayerController player = target.GetComponent<PlayerController>();
+            PlayerController pc = target.GetComponent<PlayerController>();
 
-            if (player != null)
+            if (pc != null)
             {
-                player.TakeDamage(damage);
+                pc.TakeDamage(damage);
+                Debug.Log("Hit Player");
             }
         }
 
         if (target.CompareTag("Project"))
         {
             ProjectHP hp = target.GetComponent<ProjectHP>();
+
             if (hp != null)
+            {
                 hp.TakeDamage(damage);
+                Debug.Log("Hit Project");
+            }
         }
 
-        t = 0f;
+        // chỉ animation riêng
+        StartCoroutine(BookAttackAnimation(target));
+    }
 
-        // quay về
+    IEnumerator BookAttackAnimation(Transform target)
+    {
+        isAttacking = true;
+        agent.isStopped = true;
+
+        Vector3 startPos = book.localPosition;
+        Vector3 attackPos = startPos + Vector3.forward * pounceDistance;
+
+        float t = 0f;
+
+        // lao tới
         while (t < 1f)
         {
             t += Time.deltaTime / pounceDuration;
-            book.position = Vector3.Lerp(attackPos, startPos, t);
+            book.localPosition = Vector3.Lerp(startPos, attackPos, t);
             yield return null;
         }
+
+        // quay về
+        t = 0f;
+
+        while (t < 1f)
+        {
+            t += Time.deltaTime / pounceDuration;
+            book.localPosition = Vector3.Lerp(attackPos, startPos, t);
+            yield return null;
+        }
+
+        book.localPosition = bookStartLocalPos;
 
         agent.isStopped = false;
         isAttacking = false;
