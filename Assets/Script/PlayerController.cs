@@ -257,19 +257,17 @@ namespace UnityTutorial.PlayerController
             if (playerRigidbody != null) playerRigidbody.isKinematic = true;
 
             if (animator != null) animator.SetTrigger("Die");
+        }
 
-            // === BÁO CÁO TÌNH HÌNH TỬ TRẬN ===
+        // Hàm này sẽ được gọi từ animation event ở cuối clip "Die" để hiện UI thua
+        public void TriggerGameOverUI()
+        {
             if (Level3Manager.Instance != null)
             {
-                Level3Manager.Instance.PlayerDied(); // Báo cho Màn 3
-            }
-            else if (Level2Manager.Instance != null)
-            {
-                //Level2Manager.Instance.PlayerDied(); // Báo cho Màn 2
+                Level3Manager.Instance.PlayerDied();
             }
             else
             {
-                // Tự động tìm bất kỳ Quản lý nào đang có mặt ở màn chơi hiện tại và gọi GameOver
                 BaseGameManager currentManager = FindFirstObjectByType<BaseGameManager>();
                 if (currentManager != null)
                 {
