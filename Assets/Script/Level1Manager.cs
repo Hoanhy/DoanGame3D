@@ -10,6 +10,7 @@ public class Level1Manager : BaseGameManager
     public int totalDocuments = 4;
     public int currentDocuments = 0;
     public bool readyToSubmit = false;
+    public bool hasStudentCard = false; // Thêm biến này để biết Player đã lấy thẻ chưa
 
     [Header("Timer")]
     public float timeRemaining = 180f;
@@ -70,7 +71,14 @@ public class Level1Manager : BaseGameManager
             if (missionText) missionText.text = "Đã đủ hồ sơ! Hãy gặp giáo viên.";
         }
     }
+    public void ReceiveStudentCard()
+    {
+        hasStudentCard = true;
+        if (missionText) missionText.text = "Đã nhận thẻ sinh viên! Hãy chạy ra cổng trường để thoát.";
 
+        // (Tùy chọn) Nếu bạn có một bức tường tàng hình chắn ở cổng, bạn có thể tắt nó đi ở đây
+        Debug.Log("Hệ thống: Đã nhận thẻ sinh viên, có thể qua cổng!");
+    }
     void UpdateDocumentUI()
     {
         if (documentText) documentText.text = "Hồ sơ: " + currentDocuments + " / " + totalDocuments;
