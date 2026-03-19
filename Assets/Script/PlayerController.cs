@@ -15,7 +15,7 @@ namespace UnityTutorial.PlayerController
 
         private const float walkSpeed = 5f;
         private const float runSpeed = 10f;
-        private const float rotationSpeed = 10f;
+        private float rotationSpeed = 10f;
 
         // ===== PLAYER HEALTH =====
         [Header("Player Health")]

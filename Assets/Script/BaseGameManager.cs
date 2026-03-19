@@ -15,6 +15,12 @@ public class BaseGameManager : MonoBehaviour
     public TextMeshProUGUI volumePercentText;
     public Slider volumeSlider;
 
+    [Header("Sensitivity Settings")]
+    public Slider sensitivitySlider;
+
+    [Header("Fullscreen Settings")]
+    public Toggle fullscreenToggle;
+
     protected bool isPaused = false; // protected để các script con có thể đọc được biến này
 
     // Dùng 'virtual' để script con có thể gọi ké hàm Start này
@@ -29,6 +35,17 @@ public class BaseGameManager : MonoBehaviour
         {
             volumeSlider.value = AudioListener.volume;
             SetVolume(volumeSlider.value);
+        }
+        // Tự động load trạng thái Fullscreen
+        if (fullscreenToggle != null)
+        {
+            fullscreenToggle.isOn = Screen.fullScreen;
+        }
+
+        if (sensitivitySlider != null)
+        {
+            // Load lại giá trị cũ, nếu chưa có thì mặc định là 1.0
+            sensitivitySlider.value = PlayerPrefs.GetFloat("MouseSensitivity", 1.0f);
         }
     }
 
@@ -138,5 +155,23 @@ public class BaseGameManager : MonoBehaviour
             int percent = Mathf.RoundToInt(volume * 100);
             volumePercentText.text = percent + "%";
         }
+    }
+
+    public void SetMouseSensitivity(float value)
+    {
+        // Lưu giá trị (Slider nên để từ 0.5 đến 3.0 cho dễ cảm nhận)
+        PlayerPrefs.SetFloat("CameraSensitivity", value);
+        PlayerPrefs.Save();
+
+        Debug.Log("<color=green>Đã cập nhật Độ nhạy mới: </color>" + value);
+    }
+
+    public void SetFullscreen(bool isFullscreen)
+    {
+        Screen.fullScreen = isFullscreen;
+
+        // Lưu lại trạng thái để lần sau mở game vẫn giữ đúng
+        PlayerPrefs.SetInt("IsFullscreen", isFullscreen ? 1 : 0);
+        PlayerPrefs.Save();
     }
 }
