@@ -107,37 +107,6 @@ MonoBehaviour:
   floatSpeed: 2
   swayAngle: 10
   swaySpeed: 2
---- !u!1 &249339909642242752
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5596830811040058}
-  m_Layer: 3
-  m_Name: HPPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5596830811040058
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 249339909642242752}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.01, y: 3.6, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4086834391045271518}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4822903938777962366
 GameObject:
   m_ObjectHideFlags: 0
@@ -151,7 +120,7 @@ GameObject:
   - component: {fileID: 2870256849400421598}
   - component: {fileID: 1041371474317941235}
   m_Layer: 3
-  m_Name: Book Melee
+  m_Name: EnemyMelee3
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -172,7 +141,6 @@ Transform:
   m_Children:
   - {fileID: 8709703841005216364}
   - {fileID: 5878552712205179730}
-  - {fileID: 5596830811040058}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &8640560832430850920
@@ -191,7 +159,7 @@ NavMeshAgent:
   m_AngularSpeed: 120
   m_StoppingDistance: 0.3
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 0.8
   m_BaseOffset: 0
@@ -238,7 +206,7 @@ MonoBehaviour:
   detectPlayerRange: 10
   attackRange: 4.5
   attackCooldown: 1.2
-  huntPlayerAlways: 1
+  huntPlayerAlways: 0
   book: {fileID: 8709703841005216364}
   pounceDistance: 1.2
   pounceDuration: 0.25
