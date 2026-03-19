@@ -1,22 +1,39 @@
 ﻿using UnityEngine;
-using Unity.Cinemachine; // Dùng cho Unity 6 để điều khiển Camera
+using Unity.Cinemachine;
+using UnityTutorial.PlayerController; // Gọi script người chơi
 
 public class Teleporter : MonoBehaviour
 {
-    public Transform destinationPoint; // Điểm đến ở Phòng 2
-    public SceneFader fader;           // Kéo cái Canvas (có script SceneFader) vào đây
+    [Header("Cài đặt Dịch chuyển")]
+    public Transform destinationPoint;
+    public SceneFader fader;
 
     public void TeleportPlayer()
     {
+        // 1. KHÓA NGƯỜI CHƠI NGAY LẬP TỨC TRƯỚC KHI FADE MÀN HÌNH
+        // Chống việc người chơi bấm phím chạy lung tung lúc màn hình đang tối dần
+        LockPlayer();
+
         if (fader != null)
         {
-            // Gọi hiệu ứng chớp mắt: Tối dần -> Dịch chuyển -> Sáng dần
             StartCoroutine(fader.FadeOutAndTeleport(() => ExecuteTeleport()));
         }
         else
         {
-            // Nếu quên gắn fader thì dịch chuyển tức thời như cũ
             ExecuteTeleport();
+        }
+    }
+
+    private void LockPlayer()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            PlayerController pc = player.GetComponent<PlayerController>();
+            if (pc != null) pc.enabled = false; // Tắt di chuyển
+
+            Rigidbody rb = player.GetComponent<Rigidbody>();
+            if (rb != null) rb.linearVelocity = Vector3.zero; // Xóa đà chạy
         }
     }
 
@@ -24,23 +41,45 @@ public class Teleporter : MonoBehaviour
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
 
-        if (player != null && destinationPoint != null)
+        if (player == null || destinationPoint == null)
         {
-            Vector3 oldPosition = player.transform.position;
-
-            // 1. Dịch chuyển vị trí
-            player.transform.position = destinationPoint.position;
-            player.transform.rotation = destinationPoint.rotation;
-
-            // 2. Xóa đà di chuyển
-            Rigidbody rb = player.GetComponent<Rigidbody>();
-            if (rb != null) rb.linearVelocity = Vector3.zero;
-
-            // 3. THÔNG BÁO CHO CINEMACHINE (Dành cho Unity 6)
-            // Lệnh này cực kỳ quan trọng để camera không bị văng khi Player biến mất đột ngột
-            CinemachineCore.OnTargetObjectWarped(player.transform, destinationPoint.position - oldPosition);
-
-            Debug.Log("Hệ thống: Đã dịch chuyển người chơi sang Phòng 2!");
+            Debug.LogError("LỖI: Thiếu Player hoặc Destination Point!");
+            return;
         }
+
+        Rigidbody rb = player.GetComponent<Rigidbody>();
+
+        // 2. TẮT NỘI SUY (INTERPOLATION) ĐỂ CHỐNG BỊ VẬT LÝ GIẬT LÙI
+        if (rb != null)
+        {
+            rb.isKinematic = true;
+            rb.interpolation = RigidbodyInterpolation.None;
+        }
+
+        // 3. DỜI VỊ TRÍ
+        Vector3 oldPosition = player.transform.position;
+        player.transform.position = destinationPoint.position;
+        player.transform.rotation = destinationPoint.rotation;
+
+        // 4. ÉP UNITY XÓA SẠCH TRÍ NHỚ VÀ CẬP NHẬT VỊ TRÍ MỚI NGAY LẬP TỨC
+        Physics.SyncTransforms();
+
+        // 5. TRẢ LẠI TRẠNG THÁI BÌNH THƯỜNG
+        if (rb != null)
+        {
+            rb.isKinematic = false;
+            rb.interpolation = RigidbodyInterpolation.Interpolate; // Bật lại làm mượt
+            rb.linearVelocity = Vector3.zero;
+        }
+
+        // (Script PlayerController sẽ tự động được SceneFader bật lại khi màn hình sáng lên)
+
+        // 6. CẬP NHẬT CAMERA TRÁNH BỊ VĂNG GÓC NHÌN
+        if (Camera.main != null)
+        {
+            CinemachineCore.OnTargetObjectWarped(player.transform, destinationPoint.position - oldPosition);
+        }
+
+        Debug.Log("Hệ thống: Dịch chuyển hoàn tất 100% không trượt phát nào!");
     }
 }

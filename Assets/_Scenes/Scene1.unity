@@ -2114,7 +2114,7 @@ PrefabInstance:
       objectReference: {fileID: 8076468093309941690}
     - target: {fileID: 3820644863327861603, guid: 1115b42ae01f4fd42b20896df7abdc4e, type: 3}
       propertyPath: onDialogueEndPhase2.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: WinGame
+      value: ReceiveStudentCard
       objectReference: {fileID: 0}
     - target: {fileID: 3820644863327861603, guid: 1115b42ae01f4fd42b20896df7abdc4e, type: 3}
       propertyPath: onDialogueEndPhase2.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -5911,6 +5911,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WinGameMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 80667543694116112, guid: 762183f0cc8622f4e8af45372ea7c8ea, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3969988123848286373, guid: 762183f0cc8622f4e8af45372ea7c8ea, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -6387,6 +6391,7 @@ MonoBehaviour:
   totalDocuments: 4
   currentDocuments: 0
   readyToSubmit: 0
+  hasStudentCard: 0
   timeRemaining: 180
   documentText: {fileID: 1309545942}
   timerText: {fileID: 1257170332}
