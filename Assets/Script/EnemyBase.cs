@@ -142,4 +142,18 @@ public abstract class EnemyBase : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, detectPlayerRange);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, sprintDistance);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(transform.position, transform.position + transform.forward * detectPlayerRange);
+    }
 }
