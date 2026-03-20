@@ -36,7 +36,6 @@ public abstract class EnemyBase : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.speed = moveSpeed;
 
-        // ===== CHỐNG ENEMY DÍNH NHAU =====
         agent.radius = 0.5f;
         agent.stoppingDistance = 1.2f;
         agent.avoidancePriority = Random.Range(20, 80);
@@ -55,7 +54,13 @@ public abstract class EnemyBase : MonoBehaviour
 
         if (hpBar != null)
         {
-            hpBar.SetHP(currentHP, maxHP);
+            hpBar.SetMaxHP(maxHP);
+            hpBar.SetHP(currentHP);
+
+            if (hpBar.target == null)
+            {
+                hpBar.target = transform;
+            }
         }
     }
 
@@ -123,10 +128,11 @@ public abstract class EnemyBase : MonoBehaviour
     public virtual void TakeDamage(float dmg)
     {
         currentHP -= dmg;
+        currentHP = Mathf.Clamp(currentHP, 0, maxHP);
 
         if (hpBar != null)
         {
-            hpBar.SetHP(currentHP, maxHP);
+            hpBar.SetHP(currentHP);
         }
 
         Debug.Log(gameObject.name + " mất " + dmg + " HP. Còn: " + currentHP);
@@ -135,5 +141,19 @@ public abstract class EnemyBase : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, detectPlayerRange);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, sprintDistance);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(transform.position, transform.position + transform.forward * detectPlayerRange);
     }
 }
