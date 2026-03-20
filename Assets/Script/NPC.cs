@@ -30,13 +30,6 @@ public class TeacherNPC : MonoBehaviour
     [TextArea(2, 4)] public string[] sentencesPhase2;
     public UnityEvent onDialogueEndPhase2; // Cắm sự kiện dịch chuyển vào đây
 
-    [Header("UI Hướng dẫn (Tùy chọn)")]
-    public GameObject tutorialPanel;     // Kéo Bảng hướng dẫn vào đây
-    public TextMeshProUGUI tutorialText; // Kéo Chữ vào đây
-    [TextArea(2, 4)]
-    public string tutorialMessage = "Nhấn phím [ F ] để rút vũ khí!";
-    public float tutorialDisplayTime = 4f; // Số giây hiển thị
-
     [Header("Hành động sau khi nói chuyện xong")]
     public UnityEvent onDialogueEnd;
 
@@ -143,20 +136,7 @@ public class TeacherNPC : MonoBehaviour
         Cursor.visible = true;
         NextSentence();
     }
-    public void ShowTutorialAfterDialogue()
-    {
-        if (tutorialPanel != null && tutorialText != null)
-        {
-            tutorialPanel.SetActive(true);
-            tutorialText.text = tutorialMessage;
-            StartCoroutine(HideTutorialRoutine());
-        }
-    }
-    private System.Collections.IEnumerator HideTutorialRoutine()
-    {
-        yield return new WaitForSeconds(tutorialDisplayTime);
-        if (tutorialPanel != null) tutorialPanel.SetActive(false);
-    }
+
     public void NextSentence()
     {
         if (!isTalking || isEndingDialogue) return; // Nếu không phải đang nói chuyện thì click không có tác dụng
