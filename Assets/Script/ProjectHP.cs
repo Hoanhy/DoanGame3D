@@ -2,29 +2,43 @@
 
 public class ProjectHP : MonoBehaviour
 {
+    [Header("Project Health")]
     public float maxHP = 200f;
-    float currentHP;
+    private float currentHP;
+
+    [Header("Project HP UI")]
+    public ProjectHPBar hpBar;
 
     void Start()
     {
         currentHP = maxHP;
+
+        if (hpBar != null)
+        {
+            hpBar.SetMaxHP(maxHP);
+            hpBar.SetHP(currentHP);
+        }
     }
 
     public void TakeDamage(float damage)
     {
         currentHP -= damage;
+        currentHP = Mathf.Clamp(currentHP, 0, maxHP);
 
-        // Thêm đoạn này vào:
+        if (hpBar != null)
+        {
+            hpBar.SetHP(currentHP);
+        }
+
+        Debug.Log("Project mất " + damage + " HP. Còn: " + currentHP);
+
         if (currentHP <= 0)
         {
-            currentHP = 0;
-            // Báo động cho Level 3 biết là Đồ án đã banh xác!
             if (Level3Manager.Instance != null)
             {
                 Level3Manager.Instance.ProjectDestroyed();
             }
 
-            // Xóa cục đồ án (hoặc chạy animation nổ)
             Destroy(gameObject);
         }
     }
