@@ -45,9 +45,15 @@ public class WaveSpawner : MonoBehaviour
         if (!isSpawningStarted)
         {
             isSpawningStarted = true;
-            StartCoroutine(StartWave());
+            StartCoroutine(StartFirstWave());
             Debug.Log("Bắt đầu spawn quái");
         }
+    }
+
+    IEnumerator StartFirstWave()
+    {
+        yield return new WaitForSeconds(0.5f);
+        StartCoroutine(StartWave());
     }
 
     IEnumerator StartWave()
@@ -56,11 +62,25 @@ public class WaveSpawner : MonoBehaviour
         {
             Wave wave = waves[currentWave];
 
-            Debug.Log("Wave " + (currentWave + 1));
+            if (Level3Manager.Instance != null)
+            {
+                Level3Manager.Instance.ShowWaveStart(currentWave + 1);
+            }
+
+            // Wave đầu hiện lâu hơn
+            if (currentWave == 0)
+                yield return new WaitForSeconds(3f);
+            else
+                yield return new WaitForSeconds(2f);
 
             yield return StartCoroutine(SpawnEnemies(wave));
 
             yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("Enemy").Length == 0);
+
+            if (Level3Manager.Instance != null)
+            {
+                Level3Manager.Instance.ShowWaveComplete();
+            }
 
             currentWave++;
 
@@ -101,6 +121,8 @@ public class WaveSpawner : MonoBehaviour
 
         Transform point = spawnPoints[Random.Range(0, spawnPoints.Length)];
 
-        Instantiate(enemy, point.position, Quaternion.identity);
+        Vector3 offset = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
+
+        Instantiate(enemy, point.position + offset, Quaternion.identity);
     }
 }
