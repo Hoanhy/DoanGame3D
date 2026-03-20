@@ -35,7 +35,11 @@ public abstract class EnemyBase : MonoBehaviour
 
         agent = GetComponent<NavMeshAgent>();
         agent.speed = moveSpeed;
-        agent.stoppingDistance = 0.3f;
+
+        // ===== CHỐNG ENEMY DÍNH NHAU =====
+        agent.radius = 0.5f;
+        agent.stoppingDistance = 1.2f;
+        agent.avoidancePriority = Random.Range(20, 80);
 
         GameObject p = GameObject.FindGameObjectWithTag("Player");
         if (p != null) player = p.transform;

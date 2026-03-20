@@ -13,11 +13,11 @@ public class Wave
 public class WaveSpawner : MonoBehaviour
 {
     [Header("Cài đặt khởi động")]
-    public bool autoStart = false; // Tick vào nếu muốn quái tự ra không cần NPC gọi
+    public bool autoStart = false;
 
     [Header("Spawn Points")]
     public Transform[] spawnPoints;
-    
+
     [Header("Enemy Prefabs")]
     public GameObject meleeEnemy;
     public GameObject rangedEnemy;
@@ -26,38 +26,34 @@ public class WaveSpawner : MonoBehaviour
     public List<Wave> waves = new List<Wave>();
     public float spawnDelay = 0.5f;
 
-    [Header("UI Kết thúc")]
-    public GameObject victoryPanel;
-    public AudioClip victorySound;
-
-    [Header("Hành động khi thắng lợi")]
+    [Header("Hành động khi hoàn thành")]
     public UnityEvent onWavesCompleted;
 
     int currentWave = 0;
     private bool isSpawningStarted = false;
 
-    // Hàm này sẽ tự động kiểm tra ngay khi mở Scene
     void Start()
     {
-        if (victoryPanel != null)
-        {
-            victoryPanel.SetActive(false);
-        }
         if (autoStart)
         {
             StartSpawning();
         }
     }
 
-    // Hàm này dành cho NPC hoặc Nút bấm gọi
     public void StartSpawning()
     {
         if (!isSpawningStarted)
         {
             isSpawningStarted = true;
-            StartCoroutine(StartWave());
-            Debug.Log("Hệ thống: Bắt đầu thả quái!");
+            StartCoroutine(StartFirstWave());
+            Debug.Log("Bắt đầu spawn quái");
         }
+    }
+
+    IEnumerator StartFirstWave()
+    {
+        yield return new WaitForSeconds(0.5f);
+        StartCoroutine(StartWave());
     }
 
     IEnumerator StartWave()
@@ -65,45 +61,42 @@ public class WaveSpawner : MonoBehaviour
         while (currentWave < waves.Count)
         {
             Wave wave = waves[currentWave];
-            Debug.Log("Wave " + (currentWave + 1));
+
+            if (Level3Manager.Instance != null)
+            {
+                Level3Manager.Instance.ShowWaveStart(currentWave + 1);
+            }
+
+            // Wave đầu hiện lâu hơn
+            if (currentWave == 0)
+                yield return new WaitForSeconds(3f);
+            else
+                yield return new WaitForSeconds(2f);
 
             yield return StartCoroutine(SpawnEnemies(wave));
 
             yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("Enemy").Length == 0);
 
+            if (Level3Manager.Instance != null)
+            {
+                Level3Manager.Instance.ShowWaveComplete();
+            }
+
             currentWave++;
+
             yield return new WaitForSeconds(3f);
         }
 
         Debug.Log("ALL WAVES COMPLETED");
 
-        if (victorySound != null && Camera.main != null)
-        {
-            // Phát âm thanh ngay tại vị trí Camera để người chơi nghe rõ nhất
-            AudioSource.PlayClipAtPoint(victorySound, Camera.main.transform.position);
-        }
-
-        // Bật UI Chiến thắng
-        if (victoryPanel != null)
-        {
-            victoryPanel.SetActive(true);
-
-            // Gọi hàm đếm ngược 3 giây rồi tự động tắt thông báo đi
-            StartCoroutine(HideVictoryPanelAfterSeconds(3f));
-        }
-
-        // BÁO CÁO CHIẾN THẮNG CHO NPC
         if (onWavesCompleted != null)
         {
             onWavesCompleted.Invoke();
         }
-    }
-    IEnumerator HideVictoryPanelAfterSeconds(float seconds)
-    {
-        yield return new WaitForSeconds(seconds); // Đợi số giây truyền vào
-        if (victoryPanel != null)
+
+        if (Level3Manager.Instance != null)
         {
-            victoryPanel.SetActive(false); // Tắt UI đi
+            Level3Manager.Instance.AllWavesCompleted();
         }
     }
 
@@ -125,7 +118,11 @@ public class WaveSpawner : MonoBehaviour
     void SpawnEnemy(GameObject enemy)
     {
         if (spawnPoints.Length == 0) return;
+
         Transform point = spawnPoints[Random.Range(0, spawnPoints.Length)];
-        Instantiate(enemy, point.position, Quaternion.identity);
+
+        Vector3 offset = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
+
+        Instantiate(enemy, point.position + offset, Quaternion.identity);
     }
 }

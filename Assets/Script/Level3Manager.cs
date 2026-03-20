@@ -1,20 +1,21 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
+using System.Collections;
 
-// Kế thừa từ BaseGameManager để có sẵn Pause, UI Setting, Restart...
 public class Level3Manager : BaseGameManager
 {
     public static Level3Manager Instance;
 
-    [Header("=== LOGIC RIÊNG CỦA MÀN 3 ===")]
-    public GameObject missionText;
+    [Header("UI Win")]
+    public GameObject winPanel;
 
-    [Header("Bảo vệ Đồ Án")]
-    public float surviveTime = 120f; // Sống sót và bảo vệ trong 120 giây (2 phút)
-    private bool isDefending = true;
+    [Header("Wave UI")]
+    public GameObject wavePanel;
+    public TextMeshProUGUI waveText;
 
-    [Header("NPC Trả Nhiệm Vụ")]
-    public TeacherNPC npcMan3; // Kéo ông NPC Màn 3 vào đây để báo cáo khi thủ nhà xong
+    private bool gameEnded = false;
+    private Coroutine messageCoroutine;
 
     void Awake()
     {
@@ -23,70 +24,84 @@ public class Level3Manager : BaseGameManager
 
     protected override void Start()
     {
-        base.Start(); // Bắt buộc gọi để tắt các bảng UI Pause/GameOver của Mẹ
+        base.Start();
+
+        if (winPanel != null)
+            winPanel.SetActive(false);
+
+        if (wavePanel != null)
+            wavePanel.SetActive(false);
     }
 
     protected override void Update()
     {
-        base.Update(); // Chạy lệnh rình nút ESC của Mẹ
+        base.Update();
 
-        // Nếu game đang Pause hoặc đã thủ nhà xong/thua thì không đếm giờ nữa
-        if (isPaused || !isDefending) return;
-
-        // Đếm ngược thời gian
-        surviveTime -= Time.deltaTime;
-
-        // Hiển thị thời gian lên UI
-        if (missionText != null)
+        if (gameEnded && Input.GetKeyDown(KeyCode.Space))
         {
-            int minutes = Mathf.FloorToInt(surviveTime / 60);
-            int seconds = Mathf.FloorToInt(surviveTime % 60);
-        }
-
-        // KHI HẾT GIỜ MÀ ĐỒ ÁN CHƯA VỠ -> THẮNG KÉO BẦY QUÁI
-        if (surviveTime <= 0)
-        {
-            surviveTime = 0;
-            isDefending = false;
-            ProjectSaved();
+            SceneManager.LoadScene("MenuGame");
         }
     }
 
-    // ===== CÁC HÀM XỬ LÝ THẮNG/THUA =====
-
-    // Hàm này sẽ được gọi từ script ProjectHP khi cục đồ án bị quái đánh nát (Máu <= 0)
-    public void ProjectDestroyed()
+    public void ShowWaveStart(int waveNumber)
     {
-        if (!isDefending) return;
+        if (messageCoroutine != null)
+            StopCoroutine(messageCoroutine);
 
-        isDefending = false;
-
-        GameOver(); // Gọi hàm GameOver hiện UI thua của BaseGameManager
-    }
-
-    // Hàm này sẽ được gọi từ script PlayerController khi nhân vật chết
-    public void PlayerDied()
-    {
-        if (!isDefending) return;
-
-        isDefending = false;
-
-        GameOver();
-    }
-
-    // Hàm xử lý khi hết giờ mà đồ án vẫn an toàn
-    private void ProjectSaved()
-    {
-
-        // Báo cho ông NPC biết là đã xong nhiệm vụ để ổng lật sang Kịch bản 2 (khen ngợi)
-        if (npcMan3 != null)
+        if (waveNumber == 1)
         {
-            npcMan3.SetCombatCleared();
+            messageCoroutine = StartCoroutine(ShowMessage("Bắt đầu bảo vệ đồ án! Hội đồng đang đặt câu hỏi", 3f));
         }
         else
         {
-            // Nếu bạn quên kéo NPC vào Inspector thì tự động Win luôn cho an toàn
-            WinGame();
+            messageCoroutine = StartCoroutine(ShowMessage("Đợt câu hỏi tiếp theo", 2f));
         }
+    }
+
+    public void ShowWaveComplete()
+    {
+        if (messageCoroutine != null)
+            StopCoroutine(messageCoroutine);
+
+        messageCoroutine = StartCoroutine(ShowMessage("Hoàn thành đợt câu hỏi", 2f));
+    }
+
+    IEnumerator ShowMessage(string message, float duration)
+    {
+        wavePanel.SetActive(true);
+        waveText.text = message;
+
+        yield return new WaitForSeconds(duration);
+
+        wavePanel.SetActive(false);
+    }
+
+    public void ProjectDestroyed()
+    {
+        if (gameEnded) return;
+
+        gameEnded = true;
+        GameOver();
+    }
+
+    public void PlayerDied()
+    {
+        if (gameEnded) return;
+
+        gameEnded = true;
+        GameOver();
+    }
+
+    public void AllWavesCompleted()
+    {
+        if (gameEnded) return;
+
+        gameEnded = true;
+
+        if (winPanel != null)
+            winPanel.SetActive(true);
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 }
