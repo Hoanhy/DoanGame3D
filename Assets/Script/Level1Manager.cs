@@ -93,4 +93,28 @@ public class Level1Manager : BaseGameManager
             timerText.text = "Thời gian: " + minutes.ToString("00") + ":" + seconds.ToString("00");
         }
     }
+    public override void WinGame()
+    {
+        // 1. Kiểm tra xem người chơi đã mở khóa Màn 2 chưa?
+        int currentUnlocked = PlayerPrefs.GetInt("LevelUnlocked", 1);
+
+        // 2. Nếu chưa tới Màn 2, thì lưu đè lên để mở khóa Màn 2
+        if (currentUnlocked < 2)
+        {
+            PlayerPrefs.SetInt("LevelUnlocked", 2);
+            PlayerPrefs.Save(); // Bắt buộc phải có dòng này để lưu vào ổ cứng
+            Debug.Log("Hệ thống: ĐÃ MỞ KHÓA MÀN 2!");
+        }
+
+        // 3. Gọi kịch bản hiện bảng UI Chiến thắng của người Mẹ
+        base.WinGame();
+    }
+    public void GoToScene2()
+    {
+        // 1. Mở khóa thời gian (vì lúc Win Game đã bị dừng lại)
+        Time.timeScale = 1f;
+
+        // 2. Tải Màn 2 (Lưu ý: Chữ "Scene2" phải nhập đúng y hệt tên file Scene của bạn)
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Scene2");
+    }
 }

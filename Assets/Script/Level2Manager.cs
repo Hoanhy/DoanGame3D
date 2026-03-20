@@ -98,4 +98,27 @@ public class Level2Manager : BaseGameManager
         // 2. Gọi lệnh Load lại màn chơi từ kịch bản người Mẹ (BaseGameManager)
         RestartGame();
     }
+    public override void WinGame()
+    {
+        // Thắng màn 2 thì mở màn 3
+        int currentUnlocked = PlayerPrefs.GetInt("LevelUnlocked", 1);
+
+        if (currentUnlocked < 3)
+        {
+            PlayerPrefs.SetInt("LevelUnlocked", 3);
+            PlayerPrefs.Save();
+            Debug.Log("Hệ thống: ĐÃ MỞ KHÓA MÀN 3!");
+        }
+
+        // Hiện bảng UI
+        base.WinGame();
+    }
+    public void GoToScene3()
+    {
+        // 1. Mở khóa thời gian (vì lúc Win Game đã bị dừng lại)
+        Time.timeScale = 1f;
+
+        // 2. Tải Màn 2 (Lưu ý: Chữ "Scene2" phải nhập đúng y hệt tên file Scene của bạn)
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Scene3");
+    }
 }
