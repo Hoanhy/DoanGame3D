@@ -205,7 +205,7 @@ MonoBehaviour:
   sprintDistance: 8
   detectPlayerRange: 10
   attackRange: 6
-  attackCooldown: 2
+  attackCooldown: 1.2
   huntPlayerAlways: 1
   book: {fileID: 8709703841005216364}
   pounceDistance: 1.2

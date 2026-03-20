@@ -26,10 +26,6 @@ public class WaveSpawner : MonoBehaviour
     public List<Wave> waves = new List<Wave>();
     public float spawnDelay = 0.5f;
 
-    [Header("UI & Âm thanh")]
-    public GameObject winWaveUI;
-    public AudioClip winWaveSound;
-
     [Header("Hành động khi hoàn thành")]
     public UnityEvent onWavesCompleted;
 
@@ -38,7 +34,6 @@ public class WaveSpawner : MonoBehaviour
 
     void Start()
     {
-        if (winWaveUI != null) winWaveUI.SetActive(false);
         if (autoStart)
         {
             StartSpawning();
@@ -94,13 +89,6 @@ public class WaveSpawner : MonoBehaviour
 
         Debug.Log("ALL WAVES COMPLETED");
 
-        // Bật UI Thông báo
-        if (winWaveUI != null)
-        {
-            winWaveUI.SetActive(true);
-            StartCoroutine(HideWinUIAfterSeconds(3f));
-        }
-
         if (onWavesCompleted != null)
         {
             onWavesCompleted.Invoke();
@@ -111,17 +99,7 @@ public class WaveSpawner : MonoBehaviour
             Level3Manager.Instance.AllWavesCompleted();
         }
     }
-    IEnumerator HideWinUIAfterSeconds(float seconds)
-    {
-        // Chờ đúng số giây bạn muốn
-        yield return new WaitForSeconds(seconds);
 
-        // Sau đó tự động giấu bảng UI đi
-        if (winWaveUI != null)
-        {
-            winWaveUI.SetActive(false);
-        }
-    }
     IEnumerator SpawnEnemies(Wave wave)
     {
         for (int i = 0; i < wave.meleeCount; i++)

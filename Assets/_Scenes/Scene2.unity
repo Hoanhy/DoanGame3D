@@ -3666,7 +3666,8 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 606319116}
-  m_CullTransparentMesh: 1
+
+  m_CullTransparentMesh: origin/develop
 --- !u!1001 &611387359
 PrefabInstance:
   m_ObjectHideFlags: 0

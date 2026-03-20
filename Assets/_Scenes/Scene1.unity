@@ -5839,6 +5839,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5642391143246508609, guid: 383a19eb7c9cc4d4db9b1ff00157756d, type: 3}
+      propertyPath: hpBar
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6040699932363246034, guid: 383a19eb7c9cc4d4db9b1ff00157756d, type: 3}
       propertyPath: m_Name
       value: Player
@@ -5847,8 +5851,17 @@ PrefabInstance:
       propertyPath: m_Mass
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8922538024727165265, guid: 383a19eb7c9cc4d4db9b1ff00157756d, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922538024727165265, guid: 383a19eb7c9cc4d4db9b1ff00157756d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 9148954694266518985, guid: 383a19eb7c9cc4d4db9b1ff00157756d, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 383a19eb7c9cc4d4db9b1ff00157756d, type: 3}
@@ -8598,10 +8611,8 @@ Transform:
   - {fileID: 2109281911}
   - {fileID: 1312416707}
   - {fileID: 33386732}
-  - {fileID: 988053732}
   - {fileID: 1235598201}
   - {fileID: 720671619}
-  - {fileID: 1878093895}
   - {fileID: 469865710}
   - {fileID: 518896257}
   - {fileID: 917247716}
@@ -9212,10 +9223,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: Level1Manager, Assembly-CSharp
       objectReference: {fileID: 0}
-    - target: {fileID: 6875692290550109297, guid: 762183f0cc8622f4e8af45372ea7c8ea, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Level1Manager, Assembly-CSharp
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9601,6 +9608,8 @@ MonoBehaviour:
   winGamePanel: {fileID: 1635468888}
   volumePercentText: {fileID: 1713773596}
   volumeSlider: {fileID: 270599357}
+  sensitivitySlider: {fileID: 0}
+  fullscreenToggle: {fileID: 0}
   totalDocuments: 4
   currentDocuments: 0
   readyToSubmit: 0

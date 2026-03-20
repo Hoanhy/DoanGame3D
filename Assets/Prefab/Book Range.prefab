@@ -629,7 +629,7 @@ MonoBehaviour:
   sprintDistance: 8
   detectPlayerRange: 10
   attackRange: 7
-  attackCooldown: 1.5
+  attackCooldown: 2
   huntPlayerAlways: 1
   bulletPrefab: {fileID: 4433276364406625233, guid: 221865a18078bee40a7d48e90c88de07, type: 3}
   firePoint: {fileID: 5348806591443709025}
