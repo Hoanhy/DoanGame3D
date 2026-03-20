@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Tho\xE1t"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
-  m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a8cdf09b35aac3f408bbf5ac74cb0373, type: 2}
+  m_sharedMaterial: {fileID: -6730267371249592167, guid: a8cdf09b35aac3f408bbf5ac74cb0373, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -204,8 +204,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "C\xE0i \u0111\u1EB7t"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
-  m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a8cdf09b35aac3f408bbf5ac74cb0373, type: 2}
+  m_sharedMaterial: {fileID: -6730267371249592167, guid: a8cdf09b35aac3f408bbf5ac74cb0373, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -235,7 +235,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -292,7 +292,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1745265968554401863
 RectTransform:
   m_ObjectHideFlags: 0
@@ -396,7 +396,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: Level2Manager, Assembly-CSharp
         m_MethodName: ResumeGame
         m_Mode: 1
         m_Arguments:
@@ -424,7 +424,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &672481184914768070
 RectTransform:
   m_ObjectHideFlags: 0
@@ -553,8 +553,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Ti\u1EBFp t\u1EE5c"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
-  m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a8cdf09b35aac3f408bbf5ac74cb0373, type: 2}
+  m_sharedMaterial: {fileID: -6730267371249592167, guid: a8cdf09b35aac3f408bbf5ac74cb0373, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -745,7 +745,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: Level2Manager, Assembly-CSharp
         m_MethodName: QuitToMenu
         m_Mode: 1
         m_Arguments:
@@ -878,7 +878,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: Level2Manager, Assembly-CSharp
         m_MethodName: RestartGame
         m_Mode: 1
         m_Arguments:
@@ -956,8 +956,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Ch\u01A1i l\u1EA1i"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
-  m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a8cdf09b35aac3f408bbf5ac74cb0373, type: 2}
+  m_sharedMaterial: {fileID: -6730267371249592167, guid: a8cdf09b35aac3f408bbf5ac74cb0373, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1148,7 +1148,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: Level2Manager, Assembly-CSharp
         m_MethodName: OpenSetting
         m_Mode: 1
         m_Arguments:

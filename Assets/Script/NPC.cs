@@ -162,22 +162,22 @@ public class TeacherNPC : MonoBehaviour
         if (dialoguePanel != null) dialoguePanel.SetActive(false); // Tắt khung chat
         if (dialogueCamera != null) dialogueCamera.SetActive(false); // Tắt camera hội thoại
 
-        if (currentEvent == onDialogueEnd)
-        {
-            if (player != null) player.enabled = true;
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        }
+        // Luôn luôn mở khóa điều khiển và giấu chuột sau khi nói chuyện xong
+        if (player != null) player.enabled = true;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 
-        // Gọi sự kiện (Mở bàn thi hoặc Dịch chuyển tùy thuộc vào kịch bản)
+        // Kích hoạt sự kiện (Nhận thẻ, Teleport, hoặc Win Game)
         if (currentEvent != null) currentEvent.Invoke();
 
-        // Chỉ tắt NPC nghỉ hưu nếu đã chạy xong kịch bản 2 (thi đậu)
-        if (quizManager != null && quizManager.hasPassed)
+        // Tắt NPC nghỉ hưu nếu đã chạy xong Kịch bản 2
+        if (currentEvent == onDialogueEndPhase2)
         {
             this.enabled = false;
         }
-        Invoke("ResetEndingLock", 2f);
+
+        // Tránh tình trạng bấm chuột quá nhanh bị lỗi
+        Invoke("ResetEndingLock", 0.5f);
     }
     private void ResetEndingLock()
     {

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
 
@@ -54,7 +54,12 @@ namespace UnityTutorial.Manager
         }
         private void onLook(InputAction.CallbackContext context)
         {
-            Look = context.ReadValue<Vector2>();
+            Vector2 rawLook = context.ReadValue<Vector2>();
+
+            // Lấy giá trị từ bộ nhớ
+            float sens = PlayerPrefs.GetFloat("CameraSensitivity", 1.0f);
+
+            Look = rawLook * sens;
         }
         private void onRun(InputAction.CallbackContext context)
         {

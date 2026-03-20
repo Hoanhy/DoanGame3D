@@ -36,6 +36,9 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI volumePercentText;
     public Slider volumeSlider;
 
+    [Header("Setting UI")]
+    public Toggle fullscreenToggle; 
+
     [Header("Win UI")]
     public GameObject winGamePanel;
     void Awake()
@@ -150,6 +153,12 @@ public class GameManager : MonoBehaviour
     {
         pausePanel.SetActive(false);
         settingPanel.SetActive(true);
+        
+        // Cập nhật nút Toggle khớp với thực tế màn hình máy tính
+        if (fullscreenToggle != null)
+        {
+            fullscreenToggle.isOn = Screen.fullScreen;
+        }
     }
 
     public void BackToPause()
