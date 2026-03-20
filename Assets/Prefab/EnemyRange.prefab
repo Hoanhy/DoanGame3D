@@ -171,8 +171,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: -5, y: 0}
-  m_SizeDelta: {x: -20, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3029737546684393598
 GameObject:
@@ -622,14 +622,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23ff842c061ca8a4d94ba5753f01185e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyRanged
-  maxHP: 100
+  maxHP: 60
   hpBar: {fileID: 3463431149626458598}
   moveSpeed: 2
   sprintSpeed: 6
   sprintDistance: 8
   detectPlayerRange: 10
   attackRange: 7
-  attackCooldown: 2
+  attackCooldown: 3
   huntPlayerAlways: 0
   bulletPrefab: {fileID: 4433276364406625233, guid: 221865a18078bee40a7d48e90c88de07, type: 3}
   firePoint: {fileID: 5348806591443709025}

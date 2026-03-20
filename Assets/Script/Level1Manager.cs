@@ -16,6 +16,9 @@ public class Level1Manager : BaseGameManager
     public float timeRemaining = 180f;
     private bool timerRunning = true;
 
+    [Header("UI Thẻ Sinh Viên")]
+    public GameObject studentCardPopUp;
+
     [Header("UI Riêng Màn 1")]
     public TextMeshProUGUI documentText;
     public TextMeshProUGUI timerText;
@@ -74,11 +77,39 @@ public class Level1Manager : BaseGameManager
     public void ReceiveStudentCard()
     {
         hasStudentCard = true;
-        if (missionText) missionText.text = "Đã nhận thẻ sinh viên! Hãy chạy ra cổng trường để thoát.";
 
-        // (Tùy chọn) Nếu bạn có một bức tường tàng hình chắn ở cổng, bạn có thể tắt nó đi ở đây
-        Debug.Log("Hệ thống: Đã nhận thẻ sinh viên, có thể qua cổng!");
+        // 1. Lệnh hiện Panel ảnh thẻ
+        if (studentCardPopUp != null)
+        {
+            studentCardPopUp.SetActive(true); // Bật bảng lên
+            Time.timeScale = 0f;              // Dừng thời gian game
+            Cursor.lockState = CursorLockMode.None; // Mở khóa chuột
+            Cursor.visible = true;            // Hiện con trỏ chuột
+        }
+
+        if (missionText) missionText.text = "Đã nhận thẻ sinh viên! Hãy tìm cổng trường để nhập học.";
+
+        if (documentText != null)
+        {
+            documentText.gameObject.SetActive(false);
+        }
+
+        Debug.Log("Đã nhận thẻ sinh viên, hiện UI thông báo!");
     }
+
+    public void CloseStudentCard()
+    {
+        if (studentCardPopUp != null)
+        {
+            studentCardPopUp.SetActive(false); // Ẩn thẻ đi
+            Time.timeScale = 1f;               // Chạy tiếp game
+
+            // Khóa chuột lại để chơi tiếp
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+    }
+
     void UpdateDocumentUI()
     {
         if (documentText) documentText.text = "Hồ sơ: " + currentDocuments + " / " + totalDocuments;

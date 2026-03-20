@@ -20,7 +20,7 @@ public class BlinkingText : MonoBehaviour
             Color color = textMesh.color;
 
             // Dùng hàm Toán học Sin để làm cho độ mờ (Alpha) chạy lên chạy xuống mượt mà từ 0 đến 1
-            color.a = Mathf.Abs(Mathf.Sin(Time.time * blinkSpeed));
+            color.a = Mathf.Abs(Mathf.Sin(Time.unscaledTime * blinkSpeed));
 
             // Ép màu mới vào lại chữ
             textMesh.color = color;
