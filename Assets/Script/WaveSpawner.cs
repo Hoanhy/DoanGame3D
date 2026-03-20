@@ -26,8 +26,9 @@ public class WaveSpawner : MonoBehaviour
     public List<Wave> waves = new List<Wave>();
     public float spawnDelay = 0.5f;
 
-    [Header("UI Kết thúc (Tùy chọn)")]
+    [Header("UI Kết thúc")]
     public GameObject victoryPanel;
+    public AudioClip victorySound;
 
     [Header("Hành động khi thắng lợi")]
     public UnityEvent onWavesCompleted;
@@ -38,6 +39,10 @@ public class WaveSpawner : MonoBehaviour
     // Hàm này sẽ tự động kiểm tra ngay khi mở Scene
     void Start()
     {
+        if (victoryPanel != null)
+        {
+            victoryPanel.SetActive(false);
+        }
         if (autoStart)
         {
             StartSpawning();
@@ -72,18 +77,33 @@ public class WaveSpawner : MonoBehaviour
 
         Debug.Log("ALL WAVES COMPLETED");
 
-        // Bật UI Chiến thắng (Nếu có)
+        if (victorySound != null && Camera.main != null)
+        {
+            // Phát âm thanh ngay tại vị trí Camera để người chơi nghe rõ nhất
+            AudioSource.PlayClipAtPoint(victorySound, Camera.main.transform.position);
+        }
+
+        // Bật UI Chiến thắng
         if (victoryPanel != null)
         {
             victoryPanel.SetActive(true);
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+
+            // Gọi hàm đếm ngược 3 giây rồi tự động tắt thông báo đi
+            StartCoroutine(HideVictoryPanelAfterSeconds(3f));
         }
 
         // BÁO CÁO CHIẾN THẮNG CHO NPC
         if (onWavesCompleted != null)
         {
             onWavesCompleted.Invoke();
+        }
+    }
+    IEnumerator HideVictoryPanelAfterSeconds(float seconds)
+    {
+        yield return new WaitForSeconds(seconds); // Đợi số giây truyền vào
+        if (victoryPanel != null)
+        {
+            victoryPanel.SetActive(false); // Tắt UI đi
         }
     }
 

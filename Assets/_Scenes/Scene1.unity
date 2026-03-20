@@ -1959,8 +1959,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Thu th\u1EADp \u0111\u1EE7 h\u1ED3 s\u01A1 nh\u1EADp h\u1ECDc"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a8cdf09b35aac3f408bbf5ac74cb0373, type: 2}
+  m_sharedMaterial: {fileID: -6730267371249592167, guid: a8cdf09b35aac3f408bbf5ac74cb0373, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2962,8 +2962,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Th\u1EDDi gian: \n  03 : 00"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a8cdf09b35aac3f408bbf5ac74cb0373, type: 2}
+  m_sharedMaterial: {fileID: -6730267371249592167, guid: a8cdf09b35aac3f408bbf5ac74cb0373, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3212,8 +3212,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "H\u1ED3 s\u01A1: 0 / 4"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a8cdf09b35aac3f408bbf5ac74cb0373, type: 2}
+  m_sharedMaterial: {fileID: -6730267371249592167, guid: a8cdf09b35aac3f408bbf5ac74cb0373, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3276,7 +3276,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -41.27632, w: 0}
+  m_margin: {x: 0, y: 0, z: -76.19212, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -5915,9 +5915,70 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 225446695450000452, guid: 762183f0cc8622f4e8af45372ea7c8ea, type: 3}
+      propertyPath: m_text
+      value: "Ch\xFAc m\u1EEBng b\u1EA1n v\u01B0\u1EE3t qua\nB\u1EA1n ch\xEDnh th\u1EE9c
+        tr\u1EDF th\xE0nh sinh vi\xEAn HPC\n\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 225446695450000452, guid: 762183f0cc8622f4e8af45372ea7c8ea, type: 3}
+      propertyPath: m_margin.x
+      value: -86.18172
+      objectReference: {fileID: 0}
+    - target: {fileID: 225446695450000452, guid: 762183f0cc8622f4e8af45372ea7c8ea, type: 3}
+      propertyPath: m_margin.z
+      value: -1607.005
+      objectReference: {fileID: 0}
+    - target: {fileID: 225446695450000452, guid: 762183f0cc8622f4e8af45372ea7c8ea, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: a8cdf09b35aac3f408bbf5ac74cb0373, type: 2}
+    - target: {fileID: 225446695450000452, guid: 762183f0cc8622f4e8af45372ea7c8ea, type: 3}
+      propertyPath: m_lineSpacing
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 225446695450000452, guid: 762183f0cc8622f4e8af45372ea7c8ea, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -6730267371249592167, guid: a8cdf09b35aac3f408bbf5ac74cb0373, type: 2}
+    - target: {fileID: 225446695450000452, guid: 762183f0cc8622f4e8af45372ea7c8ea, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1281570600400145223, guid: 762183f0cc8622f4e8af45372ea7c8ea, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: a8cdf09b35aac3f408bbf5ac74cb0373, type: 2}
+    - target: {fileID: 1281570600400145223, guid: 762183f0cc8622f4e8af45372ea7c8ea, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -6730267371249592167, guid: a8cdf09b35aac3f408bbf5ac74cb0373, type: 2}
+    - target: {fileID: 1281570600400145223, guid: 762183f0cc8622f4e8af45372ea7c8ea, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1818907441904551408, guid: 762183f0cc8622f4e8af45372ea7c8ea, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: a8cdf09b35aac3f408bbf5ac74cb0373, type: 2}
+    - target: {fileID: 1818907441904551408, guid: 762183f0cc8622f4e8af45372ea7c8ea, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -6730267371249592167, guid: a8cdf09b35aac3f408bbf5ac74cb0373, type: 2}
+    - target: {fileID: 1818907441904551408, guid: 762183f0cc8622f4e8af45372ea7c8ea, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3969988123848286373, guid: 762183f0cc8622f4e8af45372ea7c8ea, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 8076468093309941690}
+    - target: {fileID: 3969988123848286373, guid: 762183f0cc8622f4e8af45372ea7c8ea, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: QuitToMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 3969988123848286373, guid: 762183f0cc8622f4e8af45372ea7c8ea, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Level1Manager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5408980825468591782, guid: 762183f0cc8622f4e8af45372ea7c8ea, type: 3}
       propertyPath: m_Pivot.x
@@ -6002,6 +6063,14 @@ PrefabInstance:
     - target: {fileID: 6875692290550109297, guid: 762183f0cc8622f4e8af45372ea7c8ea, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 8076468093309941690}
+    - target: {fileID: 6875692290550109297, guid: 762183f0cc8622f4e8af45372ea7c8ea, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GoToScene2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6875692290550109297, guid: 762183f0cc8622f4e8af45372ea7c8ea, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Level1Manager, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
