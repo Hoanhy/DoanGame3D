@@ -4314,6 +4314,8 @@ MonoBehaviour:
   winGamePanel: {fileID: 354930072}
   volumePercentText: {fileID: 350639825}
   volumeSlider: {fileID: 1797703024}
+  sensitivitySlider: {fileID: 0}
+  fullscreenToggle: {fileID: 0}
   room2SpawnPoint: {fileID: 548362440}
   quizManager: {fileID: 1924518040}
 --- !u!1 &728780056 stripped
@@ -9536,8 +9538,6 @@ MonoBehaviour:
   - meleeCount: 5
     rangedCount: 3
   spawnDelay: 0.5
-  victoryPanel: {fileID: 1239971415}
-  victorySound: {fileID: 0}
   onWavesCompleted:
     m_PersistentCalls:
       m_Calls:
