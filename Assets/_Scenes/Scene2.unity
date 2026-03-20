@@ -4351,6 +4351,8 @@ MonoBehaviour:
   winGamePanel: {fileID: 0}
   volumePercentText: {fileID: 350639825}
   volumeSlider: {fileID: 1797703024}
+  sensitivitySlider: {fileID: 0}
+  fullscreenToggle: {fileID: 0}
   room2SpawnPoint: {fileID: 548362440}
   quizManager: {fileID: 1924518040}
 --- !u!1 &728780056 stripped
@@ -11861,13 +11863,13 @@ MonoBehaviour:
   - questionText: "Tr\u01B0\u1EDDng Cao \u0111\u1EB3ng C\xF4ng ngh\u1EC7 B\xE1ch
       khoa H\xE0 N\u1ED9i n\u1EB1m \u1EDF \u0111\xE2u?"
     answers:
-    - "C\u1EA7u Gi\u1EA5y, H\xE0 N\u1ED9i"
+    - "Thanh Tr\xEC, H\xE0 N\u1ED9i"
     - "Nam T\u1EEB Li\xEAm, H\xE0 N\u1ED9i"
-    - "Ho\xE0n Ki\u1EBFm, H\xE0 N\u1ED9i"
-    - "H\xE0 \u0110\xF4ng, H\xE0 N\u1ED9i"
-    correctAnswerIndex: 1
-  - questionText: "Th\u1EDDi gian \u0111\xE0o t\u1EA1o h\u1EC7 cao \u0111\u1EB3ng
-      t\u1EA1i tr\u01B0\u1EDDng th\u01B0\u1EDDng k\xE9o d\xE0i bao l\xE2u?"
+    - "Ki\u1EBFn An, H\u1EA3i Ph\xF2ng"
+    - "C\u1EA3 3 \u0111\xE1p \xE1n tr\xEAn"
+    correctAnswerIndex: 3
+  - questionText: "Th\u1EDDi gian \u0111\xE0o t\u1EA1o t\u1EA1i tr\u01B0\u1EDDng
+      th\u01B0\u1EDDng k\xE9o d\xE0i bao l\xE2u?"
     answers:
     - "4 n\u0103m"
     - "5 n\u0103m"
@@ -11906,21 +11908,19 @@ MonoBehaviour:
     - "H\u1ECDc tr\u1EF1c tuy\u1EBFn ho\xE0n to\xE0n"
     - "L\xFD thuy\u1EBFt chuy\xEAn s\xE2u"
     correctAnswerIndex: 0
-  - questionText: "\u0110\u1ED1i t\u01B0\u1EE3ng tuy\u1EC3n sinh ch\xEDnh c\u1EE7a
-      tr\u01B0\u1EDDng l\xE0 ai?"
+  - questionText: "HPC h\u1ECDc l\xE0?"
     answers:
-    - "Sinh vi\xEAn \u0111\u1EA1i h\u1ECDc"
-    - "Ng\u01B0\u1EDDi n\u01B0\u1EDBc ngo\xE0i"
-    - "H\u1ECDc sinh t\u1ED1t nghi\u1EC7p THPT"
-    - "H\u1ECDc sinh t\u1ED1t nghi\u1EC7p THCS"
+    - Vui
+    - "Th\xE0nh c\xF4ng"
+    - "M\xEA"
+    - "C\xF3 ng\u01B0\u1EDDi y\xEAu"
     correctAnswerIndex: 2
-  - questionText: "Sinh vi\xEAn t\u1EA1i Tr\u01B0\u1EDDng Cao \u0111\u1EB3ng C\xF4ng
-      ngh\u1EC7 B\xE1ch khoa H\xE0 N\u1ED9i c\xF3 th\u1EC3 tham gia g\xEC ngo\xE0i
-      gi\u1EDD h\u1ECDc?"
+  - questionText: "K\xED t\xFAc x\xE1 c\u1EE7a tr\u01B0\u1EDDng c\xF3 ti\u1EC7n \xEDch
+      g\xEC?"
     answers:
-    - "Ho\u1EA1t \u0111\u1ED9ng t\xECnh nguy\u1EC7n"
-    - "Ho\u1EA1t \u0111\u1ED9ng ngo\u1EA1i kh\xF3a"
-    - "C\xE2u l\u1EA1c b\u1ED9 sinh vi\xEAn"
+    - "Ph\xF2ng GYM, s\xE2n b\xF3ng mi\u1EC5n ph\xED"
+    - "\u0110\u1EC3 xe mi\u1EC5n ph\xED, an to\xE0n"
+    - "C\xF3 h\u1EC7 th\u1ED1ng qu\xE9t khu\xF4n m\u1EB7t, b\u1EA3o v\u1EC7 24/7"
     - "T\u1EA5t c\u1EA3 c\xE1c \u0111\xE1p \xE1n tr\xEAn"
     correctAnswerIndex: 3
   - questionText: "M\u1EE5c ti\xEAu \u0111\xE0o t\u1EA1o ch\xEDnh c\u1EE7a tr\u01B0\u1EDDng
@@ -11931,14 +11931,13 @@ MonoBehaviour:
     - "\u0110\xE0o t\u1EA1o gi\u1EA3ng vi\xEAn \u0111\u1EA1i h\u1ECDc"
     - "\u0110\xE0o t\u1EA1o l\xFD thuy\u1EBFt chuy\xEAn s\xE2u"
     correctAnswerIndex: 1
-  - questionText: "T\xEAn vi\u1EBFt t\u1EAFt th\u01B0\u1EDDng \u0111\u01B0\u1EE3c
-      d\xF9ng cho tr\u01B0\u1EDDng l\xE0 g\xEC?"
+  - questionText: "Trai c\xF4ng ngh\u1EC7 th\xF4ng tin c\xF3 ng\u1EA7u kh\xF4ng?"
     answers:
-    - BKHN
-    - HNU
-    - HPC
-    - HUST
-    correctAnswerIndex: 2
+    - "C\xF3"
+    - "Ch\u1EAFc ch\u1EAFn r\u1ED3i"
+    - "Kh\xF4ng th\u1EC3 kh\xF4ng ng\u1EA7u"
+    - "C\u1EA3 3 ph\u01B0\u01A1ng \xE1n tr\xEAn"
+    correctAnswerIndex: 3
   questionTextUI: {fileID: 1300669520}
   answerTextsUI:
   - {fileID: 1044396442}
