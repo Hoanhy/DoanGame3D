@@ -24,7 +24,7 @@ public class GateExit : MonoBehaviour
                     // Bạn có thể đổi dòng missionText để nhắc nhở người chơi
                     if (Level1Manager.Instance.missionText)
                     {
-                        Level1Manager.Instance.missionText.text = "Cửa đang khóa! Hãy quay lại nộp hồ sơ cho giáo viên.";
+                        Level1Manager.Instance.missionText.text = "Cần thẻ sinh viên! Tìm hồ sơ nộp cho giáo viên.";
                     }
                 }
             }
