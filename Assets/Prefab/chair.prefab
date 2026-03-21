@@ -182,5 +182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UnityTutorial.Interactables.ExamDesk
   promptUI: {fileID: 0}
   quizUI: {fileID: 0}
+  bgmSource: {fileID: 8165077930406575258, guid: ee357da92a1dbd746a245b1ccb5a5bc6, type: 3}
+  quizMusic: {fileID: 8300000, guid: b93508358844b6c4fb4f1230a240cf57, type: 3}
   sitPoint: {fileID: 0}
   quizManager: {fileID: 0}

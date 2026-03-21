@@ -9,6 +9,10 @@ namespace UnityTutorial.Interactables
         public GameObject promptUI; // Kéo thả UI Text "Nhấn E để thi" vào đây
         public GameObject quizUI;   // Kéo thả UI Panel Câu hỏi vào đây
 
+        [Header("Âm thanh Quiz")]
+        public AudioSource bgmSource; // Kéo cái loa BGM_Manager vào đây
+        public AudioClip quizMusic;   // Kéo bài nhạc Quiz vào đây
+
         [Header("Transform Setup")]
         public Transform sitPoint;  // Kéo thả vị trí ngồi (Empty GameObject) vào đây
 
@@ -95,7 +99,13 @@ namespace UnityTutorial.Interactables
         private void StartExam()
         {
             isTakingExam = true;
-
+            if (bgmSource != null && quizMusic != null)
+            {
+                bgmSource.gameObject.SetActive(true);
+                bgmSource.enabled = true;
+                bgmSource.clip = quizMusic;
+                bgmSource.Play();
+            }
             // 1. Ẩn dòng chữ nhắc nhở
             if (promptUI != null) promptUI.SetActive(false);
 
@@ -139,7 +149,12 @@ namespace UnityTutorial.Interactables
         public void FinishExam()
         {
             isTakingExam = false;
-
+            if (bgmSource != null && bgmSource.clip == quizMusic)
+            {
+                bgmSource.Stop();
+                // Xóa đĩa đi để lát qua phòng 2 bỏ đĩa mới vào không bị lỗi
+                bgmSource.clip = null;
+            }
             // Tắt UI bài thi
             if (quizUI != null) quizUI.SetActive(false);
 
