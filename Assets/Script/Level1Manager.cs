@@ -12,6 +12,7 @@ public class Level1Manager : BaseGameManager
     public bool readyToSubmit = false;
     public bool hasStudentCard = false; // Thêm biến này để biết Player đã lấy thẻ chưa
 
+
     [Header("Timer")]
     public float timeRemaining = 180f;
     private bool timerRunning = true;
