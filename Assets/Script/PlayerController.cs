@@ -13,8 +13,8 @@ namespace UnityTutorial.PlayerController
         private Transform cameraTransform;
         private Animator animator;
 
-        private const float walkSpeed = 5f;
-        private const float runSpeed = 10f;
+        private const float walkSpeed = 7f;
+        private const float runSpeed = 14f;
         private float rotationSpeed = 10f;
 
         // ===== PLAYER HEALTH =====
