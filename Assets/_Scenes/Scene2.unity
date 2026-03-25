@@ -10171,6 +10171,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PauseMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 4222240052006878813, guid: 53b0e8784d4ef694ebe87b7a61a7d713, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4948046444081149841, guid: 53b0e8784d4ef694ebe87b7a61a7d713, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -10969,15 +10973,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1527738243980743384, guid: ccd33279f1148144b861e8032f0e780c, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1527738243980743384, guid: ccd33279f1148144b861e8032f0e780c, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1527738243980743384, guid: ccd33279f1148144b861e8032f0e780c, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1660667365768039958, guid: ccd33279f1148144b861e8032f0e780c, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -11005,31 +11009,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3775647202434977079, guid: ccd33279f1148144b861e8032f0e780c, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3775647202434977079, guid: ccd33279f1148144b861e8032f0e780c, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3775647202434977079, guid: ccd33279f1148144b861e8032f0e780c, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4179197710950271495, guid: ccd33279f1148144b861e8032f0e780c, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4179197710950271495, guid: ccd33279f1148144b861e8032f0e780c, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4301365173216957511, guid: ccd33279f1148144b861e8032f0e780c, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4301365173216957511, guid: ccd33279f1148144b861e8032f0e780c, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5253916755000196059, guid: ccd33279f1148144b861e8032f0e780c, type: 3}
       propertyPath: m_Pivot.x
@@ -13288,23 +13292,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1661542732995864131, guid: 4a21d7c7f5b588142829b3a6087bf8de, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7495710322696482682, guid: 4a21d7c7f5b588142829b3a6087bf8de, type: 3}
-      propertyPath: m_text
-      value: "B\u1EA1n \u0111\xE3 b\u1ECB \u0111\xE1nh b\u1EA1i\nTr\u01B0\u1EE3t
-        m\xF4n"
-      objectReference: {fileID: 0}
-    - target: {fileID: 7495710322696482682, guid: 4a21d7c7f5b588142829b3a6087bf8de, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: a8cdf09b35aac3f408bbf5ac74cb0373, type: 2}
-    - target: {fileID: 7495710322696482682, guid: 4a21d7c7f5b588142829b3a6087bf8de, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -6730267371249592167, guid: a8cdf09b35aac3f408bbf5ac74cb0373, type: 2}
-    - target: {fileID: 7495710322696482682, guid: 4a21d7c7f5b588142829b3a6087bf8de, type: 3}
-      propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
