@@ -13,11 +13,11 @@ namespace UnityTutorial.PlayerController
         private Transform cameraTransform;
         private Animator animator;
 
-        private const float walkSpeed = 7f;
-        private const float runSpeed = 14f;
-        private float rotationSpeed = 10f;
+        [Header("Cài đặt Di chuyển")]
+        public float walkSpeed = 7f;
+        public float runSpeed = 14f;
+        public float rotationSpeed = 10f;
 
-        // ===== PLAYER HEALTH =====
         [Header("Player Health")]
         public float maxHP = 100f;
         public float currentHP;
@@ -122,7 +122,18 @@ namespace UnityTutorial.PlayerController
 
             if (animator != null)
             {
-                animator.SetFloat("Speed", targetSpeed);
+                // Tạo một biến riêng chỉ dùng cho Animation
+                float animationSpeedValue = 0f;
+
+                if (inputManager.Move != Vector2.zero)
+                {
+                    // Nếu đang đi: Bấm Shift thì gửi 1 (Chạy), Không bấm thì gửi 0.5 (Đi bộ)
+                    animationSpeedValue = inputManager.Run ? 1f : 0.5f;
+                }
+
+                // Có thể dùng thêm Mathf.Lerp ở đây nếu muốn nhân vật chuyển từ đi sang chạy mượt hơn, 
+                // nhưng tạm thời cứ gán trực tiếp để sửa lỗi đè animation đã.
+                animator.SetFloat("Speed", animationSpeedValue);
             }
 
             Vector3 targetVelocity = moveDirection * targetSpeed;
