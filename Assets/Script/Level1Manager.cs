@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using TMPro;
 
-// CHÚ Ý: Đổi MonoBehaviour thành BaseGameManager
 public class Level1Manager : BaseGameManager
 {
     public static Level1Manager Instance;
@@ -30,21 +29,19 @@ public class Level1Manager : BaseGameManager
         Instance = this;
     }
 
-    // override: Ghi đè lên hàm Start của Mẹ
     protected override void Start()
     {
-        base.Start(); // Lệnh này bảo: "Chạy hàm Start của mẹ trước đi (tắt UI, chỉnh âm lượng)"
+        base.Start(); 
 
-        // Sau đó mới chạy những thứ riêng của Màn 1
+  
         UpdateDocumentUI();
         UpdateTimerUI();
     }
 
     protected override void Update()
     {
-        base.Update(); // Lệnh này bảo: "Chạy hàm rình nút ESC của mẹ đi"
+        base.Update(); 
 
-        // Nếu game đang Pause thì ngưng đếm ngược thời gian
         if (isPaused) return;
 
         // Đếm giờ
@@ -58,7 +55,7 @@ public class Level1Manager : BaseGameManager
                 timerRunning = false;
 
                 if (missionText) missionText.text = "Hết thời gian!";
-                GameOver(); // Gọi hàm GameOver từ BaseGameManager (Người Mẹ)
+                GameOver(); // Gọi hàm GameOver từ BaseGameManager
             }
             UpdateTimerUI();
         }
@@ -103,7 +100,7 @@ public class Level1Manager : BaseGameManager
         if (studentCardPopUp != null)
         {
             studentCardPopUp.SetActive(false); // Ẩn thẻ đi
-            Time.timeScale = 1f;               // Chạy tiếp game
+            Time.timeScale = 1f;             
 
             // Khóa chuột lại để chơi tiếp
             Cursor.lockState = CursorLockMode.Locked;
@@ -127,26 +124,22 @@ public class Level1Manager : BaseGameManager
     }
     public override void WinGame()
     {
-        // 1. Kiểm tra xem người chơi đã mở khóa Màn 2 chưa?
+        //Kiểm tra xem người chơi đã mở khóa Màn 2 chưa?
         int currentUnlocked = PlayerPrefs.GetInt("LevelUnlocked", 1);
 
-        // 2. Nếu chưa tới Màn 2, thì lưu đè lên để mở khóa Màn 2
         if (currentUnlocked < 2)
         {
             PlayerPrefs.SetInt("LevelUnlocked", 2);
-            PlayerPrefs.Save(); // Bắt buộc phải có dòng này để lưu vào ổ cứng
+            PlayerPrefs.Save(); 
             Debug.Log("Hệ thống: ĐÃ MỞ KHÓA MÀN 2!");
         }
 
-        // 3. Gọi kịch bản hiện bảng UI Chiến thắng của người Mẹ
         base.WinGame();
     }
     public void GoToScene2()
     {
-        // 1. Mở khóa thời gian (vì lúc Win Game đã bị dừng lại)
         Time.timeScale = 1f;
 
-        // 2. Tải Màn 2 (Lưu ý: Chữ "Scene2" phải nhập đúng y hệt tên file Scene của bạn)
         UnityEngine.SceneManagement.SceneManager.LoadScene("Scene2");
     }
 }

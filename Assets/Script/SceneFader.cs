@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-using UnityTutorial.PlayerController; // Bắt buộc phải có dòng này để gọi Player
+using UnityTutorial.PlayerController;
 
 public class SceneFader : MonoBehaviour
 {

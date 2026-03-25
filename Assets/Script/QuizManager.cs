@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using TMPro; // Thư viện dùng cho TextMeshPro
-using UnityTutorial.Interactables; // Để gọi hàm FinishExam của ExamDesk
+using TMPro; 
+using UnityTutorial.Interactables; 
 
 namespace UnityTutorial.Quiz
 {
@@ -18,32 +18,30 @@ namespace UnityTutorial.Quiz
     public class QuizManager : MonoBehaviour
     {
         [Header("Liên kết File khác")]
-        private ExamDesk currentExamDesk; // Kéo thả cái Ghế vào đây để có thể đóng UI
+        private ExamDesk currentExamDesk; 
 
         [Header("Danh sách câu hỏi")]
         public List<Question> questions;
 
         [Header("UI Elements")]
-        public TextMeshProUGUI questionTextUI; // Chữ hiển thị câu hỏi
-        public TextMeshProUGUI[] answerTextsUI; // 4 chữ hiển thị trên 4 nút bấm
-        public TextMeshProUGUI timerTextUI; // Chữ hiển thị thời gian
-
+        public TextMeshProUGUI questionTextUI; 
+        public TextMeshProUGUI[] answerTextsUI; 
+        public TextMeshProUGUI timerTextUI; 
         [Header("UI Kết quả")]
-        public GameObject resultPanel; // Bảng hiện ra khi thi xong
-        public TextMeshProUGUI resultTextUI; // Chữ hiển thị điểm số
-        public TextMeshProUGUI evaluationTextUI; // Chữ hiển thị Đạt/Không đạt
+        public GameObject resultPanel; 
+        public TextMeshProUGUI resultTextUI; 
+        public TextMeshProUGUI evaluationTextUI; 
 
         [Header("Cài đặt")]
-        public float timeLimit = 60f; // Thời gian làm bài (giây)
-        public int passingScore = 5; // Số câu đúng tối thiểu để Đạt
-        public bool hasPassed = false; // Thêm biến lưu trạng thái Đã thi đậu
+        public float timeLimit = 60f; 
+        public int passingScore = 5; 
+        public bool hasPassed = false; 
 
         private int currentQuestionIndex = 0;
         private int score = 0;
         private float timeRemaining;
         private bool isQuizActive = false;
 
-        // Hàm này sẽ được gọi khi nhân vật ngồi vào ghế
         public void StartQuiz(ExamDesk desk)
         {
             currentExamDesk = desk; // Lưu lại chính xác cái ghế mà nhân vật vừa ngồi vào
@@ -65,7 +63,7 @@ namespace UnityTutorial.Quiz
                     btnText.transform.parent.gameObject.SetActive(true);
                 }
             }
-            DisplayQuestion(); // Hiện câu hỏi đầu tiên
+            DisplayQuestion(); 
         }
 
         private void Update()
@@ -82,7 +80,7 @@ namespace UnityTutorial.Quiz
                 if (timeRemaining <= 0)
                 {
                     timeRemaining = 0;
-                    EndQuiz(true); // true = Kết thúc do hết giờ
+                    EndQuiz(true);
                 }
             }
         }
@@ -93,7 +91,7 @@ namespace UnityTutorial.Quiz
             if (currentQuestionIndex < questions.Count)
             {
                 Question q = questions[currentQuestionIndex];
-                questionTextUI.text = q.questionText; // Đổi chữ câu hỏi
+                questionTextUI.text = q.questionText; 
 
                 // Đổi chữ cho 4 nút đáp án
                 for (int i = 0; i < answerTextsUI.Length; i++)
@@ -106,12 +104,10 @@ namespace UnityTutorial.Quiz
             }
             else
             {
-                // Nếu đã trả lời hết câu hỏi
-                EndQuiz(false); // false = Kết thúc do làm xong
+                EndQuiz(false); 
             }
         }
 
-        // Hàm này sẽ gắn vào OnClick của 4 nút A, B, C, D
         public void SelectAnswer(int answerIndex)
         {
             if (!isQuizActive) return;
@@ -157,8 +153,8 @@ namespace UnityTutorial.Quiz
                 if (score >= passingScore)
                 {
                     evaluationTextUI.text = "ĐÁNH GIÁ: ĐẠT";
-                    evaluationTextUI.color = Color.green; // Đổi chữ thành màu xanh lá
-                    hasPassed = true; // Đánh dấu là đã thi đậu
+                    evaluationTextUI.color = Color.green;
+                    hasPassed = true;
                 }
                 else
                 {
@@ -169,7 +165,6 @@ namespace UnityTutorial.Quiz
             }
         }
 
-        // Gắn vào nút "Thoát / Đứng lên" ở bảng kết quả
         public void CloseQuiz()
         {
             if (resultPanel != null) resultPanel.SetActive(false);

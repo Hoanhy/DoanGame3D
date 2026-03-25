@@ -1,38 +1,38 @@
 ﻿using UnityEngine;
 using UnityTutorial.Manager;
-using TMPro; // Thư viện dùng cho TextMeshPro
-using UnityTutorial.Interactables; // Để gọi script ExamDesk của bạn
-using UnityTutorial.PlayerController; // Để khóa người chơi lúc nói chuyện
+using TMPro; 
+using UnityTutorial.Interactables; 
+using UnityTutorial.PlayerController; 
 using UnityEngine.Events;
-using UnityTutorial.Quiz; // Gọi thư viện Quiz để đọc kết quả
+using UnityTutorial.Quiz; 
 
 public class TeacherNPC : MonoBehaviour
 {
     [Header("References")]
-    public GameObject interactUI; // Chữ "Nhấn E để nói chuyện với Thầy"
+    public GameObject interactUI; 
 
     [Header("UI Hội thoại (Dialogue)")]
-    public GameObject dialoguePanel; // Kéo Panel nền đen mờ vào đây
-    public TextMeshProUGUI nameText; // Kéo Text chứa tên NPC vào đây
-    public TextMeshProUGUI dialogueText; // Kéo Text chứa nội dung vào đây
+    public GameObject dialoguePanel; 
+    public TextMeshProUGUI nameText; 
+    public TextMeshProUGUI dialogueText; 
     public string npcName = "Giám Thị";
 
     [Header("Cinematic Camera")]
-    public GameObject dialogueCamera; // Kéo cái Camera góc cận vào đây
+    public GameObject dialogueCamera; 
 
     [Header("KỊCH BẢN 1: TRƯỚC KHI THI")]
-    [TextArea(2, 4)] // Giúp ô nhập chữ trong Unity to ra dễ viết hơn
-    public string[] sentences; // Danh sách các câu thầy sẽ nói lần lượt
+    [TextArea(2, 4)] 
+    public string[] sentences; 
 
     [Header("KỊCH BẢN 2: SAU KHI THI ĐẬU")]
-    public QuizManager quizManager; // Kéo file QuizManager vào đây để NPC kiểm tra điểm
+    public QuizManager quizManager; 
     public bool isCombatCleared = false;
     [TextArea(2, 4)] public string[] sentencesPhase2;
-    public UnityEvent onDialogueEndPhase2; // Cắm sự kiện dịch chuyển vào đây
+    public UnityEvent onDialogueEndPhase2; 
 
     [Header("UI Hướng dẫn (Tùy chọn)")]
-    public GameObject tutorialPanel;     // Kéo Bảng hướng dẫn vào đây
-    public TextMeshProUGUI tutorialText; // Kéo Chữ vào đây
+    public GameObject tutorialPanel;     
+    public TextMeshProUGUI tutorialText; 
     [TextArea(2, 4)]
     public string tutorialMessage = "Nhấn phím [ F ] để rút vũ khí!";
     public float tutorialDisplayTime = 4f; // Số giây hiển thị
@@ -179,10 +179,9 @@ public class TeacherNPC : MonoBehaviour
     private void EndDialogue()
     {
         isTalking = false;
-        if (dialoguePanel != null) dialoguePanel.SetActive(false); // Tắt khung chat
-        if (dialogueCamera != null) dialogueCamera.SetActive(false); // Tắt camera hội thoại
+        if (dialoguePanel != null) dialoguePanel.SetActive(false); 
+        if (dialogueCamera != null) dialogueCamera.SetActive(false); 
 
-        // Luôn luôn mở khóa điều khiển và giấu chuột sau khi nói chuyện xong
         if (player != null) player.enabled = true;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;

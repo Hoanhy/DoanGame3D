@@ -23,7 +23,9 @@ public class BaseGameManager : MonoBehaviour
 
     protected bool isPaused = false; // protected để các script con có thể đọc được biến này
 
-    // Dùng 'virtual' để script con có thể gọi ké hàm Start này
+    [Header("=== Quản lý hiển thị chồng chéo ===")]
+    public GameObject gameplayHUD;
+
     protected virtual void Start()
     {
         if (gameOverPanel) gameOverPanel.SetActive(false);
@@ -36,7 +38,6 @@ public class BaseGameManager : MonoBehaviour
             volumeSlider.value = AudioListener.volume;
             SetVolume(volumeSlider.value);
         }
-        // Tự động load trạng thái Fullscreen
         if (fullscreenToggle != null)
         {
             fullscreenToggle.isOn = Screen.fullScreen;
@@ -74,6 +75,11 @@ public class BaseGameManager : MonoBehaviour
     {
         isPaused = !isPaused;
         if (pausePanel) pausePanel.SetActive(isPaused);
+
+        if (gameplayHUD)
+        {
+            gameplayHUD.SetActive(!isPaused);
+        }
 
         if (isPaused)
         {
@@ -114,7 +120,6 @@ public class BaseGameManager : MonoBehaviour
 
     // ===== HỆ THỐNG KẾT THÚC GAME =====
 
-    // virtual để Màn 3 có thể sửa lại hàm GameOver này nếu muốn
     public virtual void GameOver(string reason = "Hết thời gian!")
     {
         if (gameOverPanel) gameOverPanel.SetActive(true);
@@ -159,7 +164,7 @@ public class BaseGameManager : MonoBehaviour
 
     public void SetMouseSensitivity(float value)
     {
-        // Lưu giá trị (Slider nên để từ 0.5 đến 3.0 cho dễ cảm nhận)
+        // Lưu giá trị
         PlayerPrefs.SetFloat("CameraSensitivity", value);
         PlayerPrefs.Save();
 
@@ -170,8 +175,20 @@ public class BaseGameManager : MonoBehaviour
     {
         Screen.fullScreen = isFullscreen;
 
-        // Lưu lại trạng thái để lần sau mở game vẫn giữ đúng
+        // Lưu lại trạng thái
         PlayerPrefs.SetInt("IsFullscreen", isFullscreen ? 1 : 0);
         PlayerPrefs.Save();
+    }
+
+    public void ResetAllData()
+    {
+        // Xóa sạch dữ liệu đã lưu trong máy người chơi
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
+
+        Debug.Log("Đã reset toàn bộ dữ liệu game!");
+
+        // Load lại màn hình Menu để cập nhật trạng thái các nút (khóa màn 2, 3)
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MenuGame");
     }
 }

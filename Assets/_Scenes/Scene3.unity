@@ -1191,17 +1191,19 @@ MonoBehaviour:
   meleeEnemy: {fileID: 4822903938777962366, guid: 4ecd681e5467c83438e07db01537a561, type: 3}
   rangedEnemy: {fileID: 7106003027925261586, guid: e5d803b8c1e093143b7995378fc68a65, type: 3}
   waves:
-  - meleeCount: 2
+  - meleeCount: 3
     rangedCount: 1
+  - meleeCount: 3
+    rangedCount: 2
   - meleeCount: 2
-    rangedCount: 2
-  - meleeCount: 3
-    rangedCount: 2
-  - meleeCount: 3
     rangedCount: 3
   - meleeCount: 4
+    rangedCount: 2
+  - meleeCount: 3
     rangedCount: 3
   spawnDelay: 0.5
+  winWaveUI: {fileID: 0}
+  bgmSource: {fileID: 0}
   onWavesCompleted:
     m_PersistentCalls:
       m_Calls: []
@@ -1914,7 +1916,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 580279880}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.11024782, y: -0.0023475457, z: 0.00026039992, w: 0.9939013}
+  m_LocalRotation: {x: 0.110247776, y: -0.0025460303, z: 0.00028241667, w: 0.99390084}
   m_LocalPosition: {x: -0.08, y: 7.173529, z: -20.866104}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2256,7 +2258,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 604225116}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.11024782, y: -0.0023475457, z: 0.00026039992, w: 0.9939013}
+  m_LocalRotation: {x: 0.110247776, y: -0.0025460306, z: 0.0002824167, w: 0.99390084}
   m_LocalPosition: {x: -0.08, y: 7.173529, z: -20.866104}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4043,6 +4045,7 @@ MonoBehaviour:
   volumeSlider: {fileID: 494812823}
   sensitivitySlider: {fileID: 1948078342}
   fullscreenToggle: {fileID: 1880658873}
+  gameplayHUD: {fileID: 0}
   winPanel: {fileID: 784240390}
   wavePanel: {fileID: 393384263}
   waveText: {fileID: 503595116}

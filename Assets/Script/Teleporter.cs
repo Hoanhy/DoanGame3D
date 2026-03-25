@@ -10,8 +10,6 @@ public class Teleporter : MonoBehaviour
 
     public void TeleportPlayer()
     {
-        // 1. KHÓA NGƯỜI CHƠI NGAY LẬP TỨC TRƯỚC KHI FADE MÀN HÌNH
-        // Chống việc người chơi bấm phím chạy lung tung lúc màn hình đang tối dần
         LockPlayer();
 
         if (fader != null)
@@ -49,22 +47,18 @@ public class Teleporter : MonoBehaviour
 
         Rigidbody rb = player.GetComponent<Rigidbody>();
 
-        // 2. TẮT NỘI SUY (INTERPOLATION) ĐỂ CHỐNG BỊ VẬT LÝ GIẬT LÙI
         if (rb != null)
         {
             rb.isKinematic = true;
             rb.interpolation = RigidbodyInterpolation.None;
         }
 
-        // 3. DỜI VỊ TRÍ
         Vector3 oldPosition = player.transform.position;
         player.transform.position = destinationPoint.position;
         player.transform.rotation = destinationPoint.rotation;
 
-        // 4. ÉP UNITY XÓA SẠCH TRÍ NHỚ VÀ CẬP NHẬT VỊ TRÍ MỚI NGAY LẬP TỨC
         Physics.SyncTransforms();
 
-        // 5. TRẢ LẠI TRẠNG THÁI BÌNH THƯỜNG
         if (rb != null)
         {
             rb.isKinematic = false;
@@ -72,9 +66,6 @@ public class Teleporter : MonoBehaviour
             rb.linearVelocity = Vector3.zero;
         }
 
-        // (Script PlayerController sẽ tự động được SceneFader bật lại khi màn hình sáng lên)
-
-        // 6. CẬP NHẬT CAMERA TRÁNH BỊ VĂNG GÓC NHÌN
         if (Camera.main != null)
         {
             CinemachineCore.OnTargetObjectWarped(player.transform, destinationPoint.position - oldPosition);

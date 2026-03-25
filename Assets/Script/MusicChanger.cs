@@ -2,9 +2,8 @@
 
 public class MusicChanger : MonoBehaviour
 {
-    public AudioSource bgmSource; // Nơi nhét cái Loa vào
-    public AudioClip newMusic;    // Nơi nhét đĩa nhạc vào
-
+    public AudioSource bgmSource; 
+    public AudioClip newMusic;    
     // Gọi hàm này để đổi nhạc
     public void PlayMusic()
     {
