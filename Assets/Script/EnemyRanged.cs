@@ -7,22 +7,24 @@ public class EnemyRanged : EnemyBase
     public Transform firePoint;
     public float bulletSpeed = 8f;
 
-    protected override void Attack()
+    protected override void Attack(Transform target)
     {
-        if (bulletPrefab == null || firePoint == null) return;
+        if (bulletPrefab == null || firePoint == null || target == null) return;
 
-        // Tạo đạn
+        Vector3 shootDir = (target.position - firePoint.position).normalized;
+
+        // tạo đạn
         GameObject bullet = Instantiate(
             bulletPrefab,
             firePoint.position,
-            Quaternion.LookRotation(player.position - firePoint.position)
+            Quaternion.LookRotation(shootDir)
         );
 
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
 
         if (rb != null)
         {
-            rb.linearVelocity = bullet.transform.forward * bulletSpeed;
+            rb.linearVelocity = shootDir * bulletSpeed;
         }
     }
 }
